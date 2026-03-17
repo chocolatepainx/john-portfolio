@@ -6,6 +6,7 @@ interface ExperienceItem {
   date: string;
   company: string;
   role: string;
+  desc: string;
   chips: string[];
   isCurrent?: boolean;
 }
@@ -15,37 +16,43 @@ const EXPERIENCES: ExperienceItem[] = [
     date: "Mar 2026 → Present",
     company: "Valence · Series B",
     role: "Founding Technical Recruiter",
+    desc: "Building the AI-era talent team — and Scout alongside it.",
     chips: ["AI-native TA", "Scout", "0→1", "Ashby"],
     isCurrent: true,
   },
   {
     date: "Jul 2025 → Mar 2026",
     company: "Prospects+ · VC-backed",
-    role: "Builder",
+    role: "Principal Technical Recruiter",
+    desc: "Embedded with VC-backed founders from Seed through Pre-IPO.",
     chips: ["Seed→Pre-IPO", "AI sector", "Automation"],
   },
   {
     date: "Jan 2025 → Jul 2025",
     company: "Siena AI · Founding",
     role: "Founding Recruiter",
+    desc: "First recruiter in — built the stack with Claude, Cursor, Gumloop.",
     chips: ["Claude", "Juicebox", "Gumloop", "Cursor"],
   },
   {
     date: "Aug 2023 → Jan 2025",
     company: "Cresta · Conversational AI",
     role: "Founding Recruiter",
+    desc: "Recruiter #1 — LLM, RAG, and AI Agent teams globally.",
     chips: ["LLM", "RAG", "AI Agents", "Campus", "Global"],
   },
   {
     date: "2019 → 2023",
     company: "Fintech · Scale",
     role: "Senior Technical Recruiter",
+    desc: "Scaled Wealthsimple 200→400 eng. 87% offer acceptance.",
     chips: ["200→400 eng", "87% acceptance", "CTO support"],
   },
   {
     date: "2014 → 2019",
     company: "Agency · Independent",
     role: "Agency Founder · Founding TA",
+    desc: "Placed at Two Sigma, Citadel, Palantir. 60+ hires, own agency.",
     chips: ["Hedge funds", "60+ hires", "Founder"],
   },
 ];
@@ -159,6 +166,18 @@ function ExperienceRow({ item, isLast }: { item: ExperienceItem; isLast: boolean
           }}
         >
           {item.role}
+        </div>
+
+        {/* One-liner desc */}
+        <div
+          style={{
+            fontSize: "12px",
+            color: "#4a4a4a",
+            lineHeight: 1.5,
+            letterSpacing: "0.01em",
+          }}
+        >
+          {item.desc}
         </div>
 
         {/* Chips */}
