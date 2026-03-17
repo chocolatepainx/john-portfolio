@@ -1,0 +1,161 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #111111;
+  --color-bg-deep: #0a0a08;
+  --color-bg-dark: #0d0d0b;
+  --color-surface: #1a1a18;
+  --color-moss: #4a7a2a;
+  --color-moss-light: #8aad5a;
+  --color-moss-pale: rgba(138, 173, 90, 0.1);
+  --color-text-primary: #ffffff;
+  --color-text-muted: #555555;
+  --color-text-dim: #333333;
+  --color-text-dimmer: #222222;
+  --color-border: rgba(255, 255, 255, 0.07);
+  --color-border-faint: rgba(255, 255, 255, 0.05);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-dm-mono);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #111111;
+  color: #ffffff;
+  font-family: var(--font-inter), Inter, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #111111;
+}
+::-webkit-scrollbar-thumb {
+  background: #222;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #333;
+}
+
+/* Moss selection */
+::selection {
+  background: rgba(74, 122, 42, 0.3);
+  color: #ffffff;
+}
+
+/* Keyframes */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse-dot {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.85);
+  }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes lineIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animation utility classes */
+.animate-fade-up {
+  animation: fadeUp 0.6s ease forwards;
+}
+
+.animate-slide-right {
+  animation: slideInRight 0.7s ease forwards;
+}
+
+.animate-pulse-dot {
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
+
+.animate-marquee {
+  animation: marquee-scroll 22s linear infinite;
+}
+
+.marquee-container:hover .animate-marquee {
+  animation-play-state: paused;
+}
+
+.animate-line-in {
+  animation: lineIn 0.25s ease forwards;
+}
+
+/* Stagger helpers */
+.stagger-1 { animation-delay: 0ms; }
+.stagger-2 { animation-delay: 150ms; }
+.stagger-3 { animation-delay: 300ms; }
+.stagger-4 { animation-delay: 450ms; }
+.stagger-5 { animation-delay: 600ms; }
+.stagger-6 { animation-delay: 750ms; }
+.stagger-7 { animation-delay: 900ms; }
+.stagger-8 { animation-delay: 1050ms; }
+
+/* Scroll animation */
+.scroll-fade-up {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.scroll-fade-up.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
