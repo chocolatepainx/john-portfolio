@@ -119,7 +119,7 @@ function FeaturedCard() {
   return (
     <div
       ref={ref}
-      className="scroll-fade-up"
+      className="scroll-fade-up featured-card-grid"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
@@ -142,7 +142,7 @@ function FeaturedCard() {
       }} />
 
       {/* Left: text content */}
-      <div style={{
+      <div className="featured-card-left" style={{
         padding: "2rem",
         display: "flex",
         flexDirection: "column",
@@ -313,6 +313,7 @@ export default function Projects() {
   return (
     <section
       id="projects"
+      className="projects-section"
       style={{
         background: "#111111",
         padding: "4rem 2.5rem",
@@ -336,7 +337,7 @@ export default function Projects() {
         </div>
 
         {/* 2-column grid for remaining cards */}
-        <div style={{
+        <div className="projects-grid" style={{
           display: "grid",
           gridTemplateColumns: "1fr 1fr",
           gap: "16px",

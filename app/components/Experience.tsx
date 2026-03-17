@@ -80,7 +80,7 @@ function ExperienceRow({ item, isLast }: { item: ExperienceItem; isLast: boolean
   return (
     <div
       ref={ref}
-      className="scroll-fade-up"
+      className="scroll-fade-up exp-row"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
@@ -209,6 +209,7 @@ export default function Experience() {
   return (
     <section
       id="experience"
+      className="exp-section"
       style={{
         padding: "4rem 2.5rem",
         borderTop: "1px solid rgba(255,255,255,0.06)",

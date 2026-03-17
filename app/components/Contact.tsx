@@ -19,12 +19,14 @@ export default function Contact() {
   return (
     <section
       id="contact"
+      className="contact-section"
       style={{
         padding: "4rem 2.5rem",
         borderTop: "1px solid rgba(255,255,255,0.06)",
       }}
     >
       <div
+        className="contact-card"
         style={{
           background: "#0d0d0b",
           border: "1px solid rgba(255,255,255,0.07)",

@@ -34,6 +34,7 @@ export default function Nav() {
       {/* Right: Nav links + Scout pill */}
       <div style={{ display: "flex", alignItems: "center", gap: "1.75rem" }}>
         <a
+          className="nav-links"
           href="#experience"
           style={{
             color: "#555",
@@ -51,6 +52,7 @@ export default function Nav() {
           Experience
         </a>
         <a
+          className="nav-links"
           href="#projects"
           style={{
             color: "#555",
@@ -68,6 +70,7 @@ export default function Nav() {
           Projects
         </a>
         <a
+          className="nav-links"
           href="https://linkedin.com/in/john-duong-x"
           target="_blank"
           rel="noopener noreferrer"
@@ -110,6 +113,7 @@ export default function Nav() {
             }}
           />
           <span
+            className="nav-pill-text"
             style={{
               fontFamily: "var(--font-dm-mono), 'DM Mono', monospace",
               fontSize: "11px",

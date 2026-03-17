@@ -27,6 +27,7 @@ const FOOTER_TAGS = [
 export default function Hero() {
   return (
     <section
+      className="hero-section"
       style={{
         display: "grid",
         gridTemplateColumns: "1fr 420px",
@@ -36,6 +37,7 @@ export default function Hero() {
     >
       {/* Left Column */}
       <div
+        className="hero-left"
         style={{
           padding: "4.5rem 2.5rem",
           display: "flex",
@@ -64,7 +66,7 @@ export default function Hero() {
         {/* Headline */}
         <div style={{ marginBottom: "1.75rem" }}>
           <h1
-            className="animate-fade-up stagger-2"
+            className="animate-fade-up stagger-2 hero-headline"
             style={{
               fontSize: "clamp(2.6rem, 5vw, 4rem)",
               fontWeight: 900,
@@ -78,7 +80,7 @@ export default function Hero() {
             I don&apos;t just hire
           </h1>
           <h1
-            className="animate-fade-up stagger-3"
+            className="animate-fade-up stagger-3 hero-headline"
             style={{
               fontSize: "clamp(2.6rem, 5vw, 4rem)",
               fontWeight: 900,
@@ -92,7 +94,7 @@ export default function Hero() {
             AI builders.
           </h1>
           <h1
-            className="animate-fade-up stagger-4"
+            className="animate-fade-up stagger-4 hero-headline"
             style={{
               fontSize: "clamp(2.6rem, 5vw, 4rem)",
               fontWeight: 300,
@@ -231,7 +233,7 @@ export default function Hero() {
 
       {/* Right Column */}
       <div
-        className="animate-slide-right"
+        className="animate-slide-right hero-right"
         style={{
           padding: "2.5rem 2rem",
           display: "flex",
