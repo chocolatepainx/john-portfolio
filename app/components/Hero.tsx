@@ -29,7 +29,7 @@ export default function Hero() {
     <section
       style={{
         display: "grid",
-        gridTemplateColumns: "1fr 320px",
+        gridTemplateColumns: "1fr 420px",
         minHeight: "calc(100vh - 52px)",
         borderBottom: "1px solid rgba(255,255,255,0.06)",
       }}
@@ -238,6 +238,8 @@ export default function Hero() {
           flexDirection: "column",
           gap: "1rem",
           justifyContent: "center",
+          alignSelf: "stretch",
+          minWidth: 0,
           background: "#0d0d0b",
           opacity: 0,
         }}
@@ -311,7 +313,7 @@ export default function Hero() {
           </div>
 
           {/* Terminal */}
-          <div style={{ padding: "0 1.25rem" }}>
+          <div style={{ padding: "0 1.25rem 0 1.25rem", overflow: "hidden" }}>
             <Terminal />
           </div>
 

@@ -47,28 +47,30 @@ export default function Terminal() {
         fontSize: "11px",
         lineHeight: "1.8",
         minHeight: "120px",
+        overflow: "hidden",
+        width: "100%",
       }}
     >
       {LINES.slice(0, visibleCount).map((line, i) => (
         <div
           key={i}
           className="animate-line-in"
-          style={{ display: "flex", whiteSpace: "pre" }}
+          style={{ display: "flex", whiteSpace: "pre-wrap", wordBreak: "break-word", minWidth: 0 }}
         >
           {line.type === "command" && (
-            <span style={{ color: "#ffffff" }}>{line.text}</span>
+            <span style={{ color: "#ffffff", minWidth: 0 }}>{line.text}</span>
           )}
           {line.type === "kv" && (
             <>
-              <span style={{ color: "#8aad5a" }}>{line.key}</span>
-              <span style={{ color: "#444444" }}>{line.value}</span>
+              <span style={{ color: "#8aad5a", flexShrink: 0 }}>{line.key}</span>
+              <span style={{ color: "#444444", minWidth: 0 }}>{line.value}</span>
             </>
           )}
           {line.type === "string" && (
-            <span style={{ color: "#c8e89a" }}>{line.text}</span>
+            <span style={{ color: "#c8e89a", minWidth: 0 }}>{line.text}</span>
           )}
           {line.type === "done" && (
-            <span style={{ color: "#4ade80" }}>
+            <span style={{ color: "#4ade80", minWidth: 0 }}>
               {line.text}{" "}
               {i === visibleCount - 1 && (
                 <span className="animate-blink" style={{ color: "#4ade80" }}>
