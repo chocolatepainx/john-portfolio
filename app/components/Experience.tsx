@@ -84,7 +84,7 @@ function ExperienceRow({ item }: { item: ExperienceItem }) {
   return (
     <div
       ref={ref}
-      className="scroll-fade-up"
+      className="scroll-fade-up exp-row"
       style={{
         display: "grid",
         gridTemplateColumns: "200px 1fr",
@@ -95,7 +95,7 @@ function ExperienceRow({ item }: { item: ExperienceItem }) {
       }}
     >
       {/* Left: date */}
-      <div>
+      <div className="exp-left">
         <div
           style={{
             fontFamily: "var(--font-dm-mono), 'DM Mono', monospace",
@@ -167,30 +167,51 @@ function ExperienceRow({ item }: { item: ExperienceItem }) {
 
 export default function Experience() {
   return (
-    <section
-      id="experience"
-      style={{
-        padding: "4rem 2.5rem",
-        borderTop: "1px solid rgba(255,255,255,0.06)",
-      }}
-    >
-      <div style={{ maxWidth: "900px", margin: "0 auto" }}>
-        <div
-          style={{
-            fontFamily: "var(--font-dm-mono), 'DM Mono', monospace",
-            fontSize: "11px",
-            color: "#333",
-            textTransform: "uppercase",
-            letterSpacing: "0.1em",
-            marginBottom: "0.5rem",
-          }}
-        >
-          Experience
+    <>
+      <style>{`
+        .experience-section {
+          padding: 4rem 2.5rem;
+          border-top: 1px solid rgba(255,255,255,0.06);
+          overflow-x: hidden;
+        }
+        @media (max-width: 767px) {
+          .experience-section {
+            padding: 2.5rem 1.25rem;
+          }
+          .exp-row {
+            grid-template-columns: 1fr !important;
+            gap: 0.5rem !important;
+            padding: 1.25rem 0 !important;
+          }
+          .exp-left {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+          }
+        }
+      `}</style>
+      <section
+        id="experience"
+        className="experience-section"
+      >
+        <div style={{ maxWidth: "900px", margin: "0 auto" }}>
+          <div
+            style={{
+              fontFamily: "var(--font-dm-mono), 'DM Mono', monospace",
+              fontSize: "11px",
+              color: "#333",
+              textTransform: "uppercase",
+              letterSpacing: "0.1em",
+              marginBottom: "0.5rem",
+            }}
+          >
+            Experience
+          </div>
+          {EXPERIENCES.map((item) => (
+            <ExperienceRow key={item.company + item.date} item={item} />
+          ))}
         </div>
-        {EXPERIENCES.map((item) => (
-          <ExperienceRow key={item.company + item.date} item={item} />
-        ))}
-      </div>
-    </section>
+      </section>
+    </>
   );
 }

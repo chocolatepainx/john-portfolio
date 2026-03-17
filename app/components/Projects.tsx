@@ -55,7 +55,7 @@ function statusBadge(status: Status, isOpenSource?: boolean) {
   };
   const { bg, color, label } = configs[status];
   return (
-    <div style={{ display: "flex", gap: "6px", alignItems: "center" }}>
+    <div style={{ display: "flex", gap: "6px", alignItems: "center", flexWrap: "wrap" }}>
       <span
         style={{
           background: bg,
@@ -109,7 +109,7 @@ function ProjectRow({ project }: { project: Project }) {
   return (
     <div
       ref={ref}
-      className="scroll-fade-up"
+      className="scroll-fade-up proj-row"
       style={{
         display: "grid",
         gridTemplateColumns: "1fr auto",
@@ -130,7 +130,7 @@ function ProjectRow({ project }: { project: Project }) {
       }}
     >
       <div>
-        <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.4rem" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.4rem", flexWrap: "wrap" }}>
           <span style={{ fontSize: "15px", fontWeight: 700, color: "#ffffff" }}>
             {project.name}
           </span>
@@ -182,31 +182,47 @@ function ProjectRow({ project }: { project: Project }) {
 
 export default function Projects() {
   return (
-    <section
-      id="projects"
-      style={{
-        background: "#111111",
-        padding: "4rem 2.5rem",
-        borderTop: "1px solid rgba(255,255,255,0.06)",
-      }}
-    >
-      <div style={{ maxWidth: "900px", margin: "0 auto" }}>
-        <div
-          style={{
-            fontFamily: "var(--font-dm-mono), 'DM Mono', monospace",
-            fontSize: "11px",
-            color: "#333",
-            textTransform: "uppercase",
-            letterSpacing: "0.1em",
-            marginBottom: "0.5rem",
-          }}
-        >
-          Projects
+    <>
+      <style>{`
+        .projects-section {
+          background: #111111;
+          padding: 4rem 2.5rem;
+          border-top: 1px solid rgba(255,255,255,0.06);
+          overflow-x: hidden;
+        }
+        @media (max-width: 767px) {
+          .projects-section {
+            padding: 2.5rem 1.25rem;
+          }
+          .proj-row {
+            grid-template-columns: 1fr auto !important;
+            gap: 1rem !important;
+            padding: 1.25rem 0 !important;
+          }
+        }
+      `}</style>
+      <section
+        id="projects"
+        className="projects-section"
+      >
+        <div style={{ maxWidth: "900px", margin: "0 auto" }}>
+          <div
+            style={{
+              fontFamily: "var(--font-dm-mono), 'DM Mono', monospace",
+              fontSize: "11px",
+              color: "#333",
+              textTransform: "uppercase",
+              letterSpacing: "0.1em",
+              marginBottom: "0.5rem",
+            }}
+          >
+            Projects
+          </div>
+          {PROJECTS.map((project) => (
+            <ProjectRow key={project.name} project={project} />
+          ))}
         </div>
-        {PROJECTS.map((project) => (
-          <ProjectRow key={project.name} project={project} />
-        ))}
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
