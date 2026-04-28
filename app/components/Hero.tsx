@@ -1,7 +1,7 @@
 "use client";
 import { useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import Terminal from "./Terminal";
+import AgentFeed from "./AgentFeed";
 import { NumberTicker } from "./ui/NumberTicker";
 import { BorderBeam } from "./ui/BorderBeam";
 import MagneticButton from "./ui/MagneticButton";
@@ -185,9 +185,9 @@ function ScoutCard() {
         </div>
       </div>
 
-      {/* Terminal */}
+      {/* Agent Feed */}
       <div className="p-4">
-        <Terminal />
+        <AgentFeed />
       </div>
 
       {/* Card footer */}
