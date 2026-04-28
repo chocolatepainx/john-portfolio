@@ -31,7 +31,7 @@ const ALL_ITEMS = [
 
 export default function MarqueeSection() {
   return (
-    <div className="border-y border-white/[0.05] bg-[#0a0a08] py-2.5 overflow-hidden marquee-container">
+    <div className="border-y border-[#E8E3D6] bg-[#F2EDE3] py-2.5 overflow-hidden marquee-container">
       <div className="flex w-max animate-marquee">
         {[...ALL_ITEMS, ...ALL_ITEMS].map((item, i) => {
           const highlighted = HIGHLIGHTED.has(item);
@@ -39,10 +39,10 @@ export default function MarqueeSection() {
             <span
               key={i}
               className="inline-flex items-center gap-5 px-5 font-mono text-[10px] tracking-[0.06em] whitespace-nowrap select-none"
-              style={{ color: highlighted ? "rgba(138,173,90,0.55)" : "#1e1e1c" }}
+              style={{ color: highlighted ? "rgba(61,107,26,0.65)" : "#B8B3AA" }}
             >
               {item}
-              <span className="text-[7px]" style={{ color: "#161614" }}>
+              <span className="text-[7px]" style={{ color: "#D6D1C7" }}>
                 ◆
               </span>
             </span>
