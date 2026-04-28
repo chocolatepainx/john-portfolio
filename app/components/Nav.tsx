@@ -48,7 +48,7 @@ export default function Nav() {
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/john-portfolio/avatar.jpg"
+            src={`${process.env.NEXT_PUBLIC_BASE_PATH}/avatar.jpg`}
             alt="John Duong"
             width={22}
             height={22}
