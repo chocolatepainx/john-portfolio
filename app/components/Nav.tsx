@@ -1,126 +1,94 @@
 "use client";
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 export default function Nav() {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 10);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <nav
-      style={{
-        position: "sticky",
-        top: 0,
-        zIndex: 50,
-        height: "52px",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        padding: "0 2.5rem",
-        background: "rgba(17,17,17,0.97)",
-        backdropFilter: "blur(12px)",
-        WebkitBackdropFilter: "blur(12px)",
-        borderBottom: "1px solid rgba(255,255,255,0.07)",
-      }}
+    <motion.header
+      initial={{ opacity: 0, y: -8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
+      className={`fixed top-0 inset-x-0 z-50 h-14 flex items-center px-6 md:px-10 transition-all duration-300 ${
+        scrolled
+          ? "border-b border-white/5 bg-[#111111]/90 backdrop-blur-md"
+          : "bg-transparent"
+      }`}
     >
-      {/* Left: Name */}
-      <span
-        style={{
-          fontFamily: "var(--font-inter), Inter, sans-serif",
-          fontWeight: 700,
-          fontSize: "14px",
-          color: "#ffffff",
-          letterSpacing: "-0.02em",
-        }}
-      >
-        John Duong
-      </span>
-
-      {/* Right: Nav links + Scout pill */}
-      <div style={{ display: "flex", alignItems: "center", gap: "1.75rem" }}>
+      <div className="w-full max-w-5xl mx-auto flex items-center justify-between">
         <a
-          href="#experience"
-          style={{
-            color: "#555",
-            fontSize: "13px",
-            textDecoration: "none",
-            transition: "color 0.2s",
-          }}
-          onMouseEnter={(e) =>
-            ((e.target as HTMLElement).style.color = "#fff")
-          }
-          onMouseLeave={(e) =>
-            ((e.target as HTMLElement).style.color = "#555")
-          }
+          href="/"
+          className="text-sm font-medium text-white/90 hover:text-white transition-colors tracking-tight"
         >
-          Experience
-        </a>
-        <a
-          href="#projects"
-          style={{
-            color: "#555",
-            fontSize: "13px",
-            textDecoration: "none",
-            transition: "color 0.2s",
-          }}
-          onMouseEnter={(e) =>
-            ((e.target as HTMLElement).style.color = "#fff")
-          }
-          onMouseLeave={(e) =>
-            ((e.target as HTMLElement).style.color = "#555")
-          }
-        >
-          Projects
-        </a>
-        <a
-          href="https://linkedin.com/in/john-duong-x"
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{
-            color: "#555",
-            fontSize: "13px",
-            textDecoration: "none",
-            transition: "color 0.2s",
-          }}
-          onMouseEnter={(e) =>
-            ((e.target as HTMLElement).style.color = "#fff")
-          }
-          onMouseLeave={(e) =>
-            ((e.target as HTMLElement).style.color = "#555")
-          }
-        >
-          LinkedIn ↗
+          John Duong
         </a>
 
-        {/* Scout running pill */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "6px",
-            background: "rgba(74,122,42,0.12)",
-            border: "1px solid rgba(74,122,42,0.3)",
-            borderRadius: "20px",
-            padding: "4px 10px 4px 8px",
-          }}
-        >
-          <span
-            className="animate-pulse-dot"
-            style={{
-              display: "inline-block",
-              width: "6px",
-              height: "6px",
-              borderRadius: "50%",
-              background: "#4a7a2a",
-            }}
-          />
-          <span
-            style={{
-              fontFamily: "var(--font-dm-mono), 'DM Mono', monospace",
-              fontSize: "11px",
-              color: "#8aad5a",
-              letterSpacing: "0.02em",
-            }}
+        <nav className="flex items-center gap-5">
+          <a
+            href="#work"
+            className="hidden md:block text-xs text-white/35 hover:text-white/70 transition-colors"
           >
-            Scout running
-          </span>
-        </div>
+            Work
+          </a>
+          <a
+            href="#experience"
+            className="hidden md:block text-xs text-white/35 hover:text-white/70 transition-colors"
+          >
+            Experience
+          </a>
+          <a
+            href="https://linkedin.com/in/john-duong-x"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden md:block text-xs text-white/35 hover:text-white/70 transition-colors"
+          >
+            LinkedIn
+          </a>
+          <ScoutPill />
+        </nav>
       </div>
-    </nav>
+    </motion.header>
+  );
+}
+
+function ScoutPill() {
+  const [time, setTime] = useState("");
+
+  useEffect(() => {
+    const update = () =>
+      setTime(
+        new Date().toLocaleTimeString("en-US", {
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: false,
+        })
+      );
+    update();
+    const id = setInterval(update, 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  return (
+    <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/8 bg-white/[0.02]">
+      <span
+        className="w-1.5 h-1.5 rounded-full bg-[#8aad5a]"
+        style={{ animation: "blink 2.4s ease-in-out infinite" }}
+      />
+      <span className="font-mono text-[10px] text-[#8aad5a] tracking-wider uppercase">
+        Scout
+      </span>
+      {time && (
+        <span className="font-mono text-[10px] text-white/20 tabular-nums">
+          {time}
+        </span>
+      )}
+    </div>
   );
 }

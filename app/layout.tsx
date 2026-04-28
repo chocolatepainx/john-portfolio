@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, DM_Mono } from "next/font/google";
+import { Inter, DM_Mono, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -14,10 +14,17 @@ const dmMono = DM_Mono({
   weight: ["300", "400", "500"],
 });
 
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-instrument-serif",
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
+});
+
 export const metadata: Metadata = {
   title: "John Duong — Talent Engineer",
   description:
-    "Talent Engineer at Valence. I don't just hire AI builders — I am one. Building Scout, an autonomous sourcing agent that runs 24/7.",
+    "I don't just hire AI builders. I am one. Talent Engineer at Valence building Scout — an autonomous sourcing agent that runs 24/7.",
   keywords: [
     "Talent Engineer",
     "AI Recruiting",
@@ -39,13 +46,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${inter.variable} ${dmMono.variable} antialiased`}
-        style={{ background: "#111111", color: "#ffffff" }}
-      >
-        {children}
-      </body>
+    <html
+      lang="en"
+      className={`${inter.variable} ${dmMono.variable} ${instrumentSerif.variable}`}
+    >
+      <body className="antialiased">{children}</body>
     </html>
   );
 }

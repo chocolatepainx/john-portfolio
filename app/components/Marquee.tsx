@@ -29,56 +29,25 @@ const ALL_ITEMS = [
   "Cursor",
 ];
 
-function MarqueeItem({ label }: { label: string }) {
-  const isHighlighted = HIGHLIGHTED.has(label);
+export default function MarqueeSection() {
   return (
-    <span
-      style={{
-        display: "inline-flex",
-        alignItems: "center",
-        gap: "1.5rem",
-        padding: "0 1.5rem",
-        fontFamily: "var(--font-dm-mono), 'DM Mono', monospace",
-        fontSize: "11px",
-        color: isHighlighted ? "#4a7a2a" : "#222",
-        letterSpacing: "0.04em",
-        whiteSpace: "nowrap",
-        userSelect: "none",
-      }}
-    >
-      {label}
-      <span style={{ color: "#1a1a1a", fontSize: "8px" }}>◆</span>
-    </span>
-  );
-}
-
-export default function Marquee() {
-  return (
-    <div
-      style={{
-        background: "#0a0a08",
-        borderTop: "1px solid rgba(255,255,255,0.05)",
-        borderBottom: "1px solid rgba(255,255,255,0.05)",
-        padding: "9px 0",
-        overflow: "hidden",
-      }}
-      className="marquee-container"
-    >
-      <div
-        className="animate-marquee"
-        style={{
-          display: "flex",
-          width: "max-content",
-        }}
-      >
-        {/* First set */}
-        {ALL_ITEMS.map((item, i) => (
-          <MarqueeItem key={`a-${i}`} label={item} />
-        ))}
-        {/* Duplicate for seamless loop */}
-        {ALL_ITEMS.map((item, i) => (
-          <MarqueeItem key={`b-${i}`} label={item} />
-        ))}
+    <div className="border-y border-white/[0.05] bg-[#0a0a08] py-2.5 overflow-hidden marquee-container">
+      <div className="flex w-max animate-marquee">
+        {[...ALL_ITEMS, ...ALL_ITEMS].map((item, i) => {
+          const highlighted = HIGHLIGHTED.has(item);
+          return (
+            <span
+              key={i}
+              className="inline-flex items-center gap-5 px-5 font-mono text-[10px] tracking-[0.06em] whitespace-nowrap select-none"
+              style={{ color: highlighted ? "rgba(138,173,90,0.55)" : "#1e1e1c" }}
+            >
+              {item}
+              <span className="text-[7px]" style={{ color: "#161614" }}>
+                ◆
+              </span>
+            </span>
+          );
+        })}
       </div>
     </div>
   );

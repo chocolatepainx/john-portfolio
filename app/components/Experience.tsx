@@ -1,6 +1,5 @@
 "use client";
-
-import { useEffect, useRef } from "react";
+import { motion, type Variants } from "framer-motion";
 
 interface ExperienceItem {
   date: string;
@@ -22,15 +21,15 @@ const EXPERIENCES: ExperienceItem[] = [
   },
   {
     date: "Jul 2025 → Mar 2026",
-    company: "Prospects+ · VC-backed",
+    company: "Prospects+",
     role: "Builder",
-    location: "NYC/SF/Toronto",
+    location: "NYC / SF / Toronto",
     desc: "VC-backed founders across AI Health, Finance, Coaching, EdTech. Seed through Pre-IPO. Built the pipelines that became Scout.",
     chips: ["Seed→Pre-IPO", "AI sector", "Automation"],
   },
   {
     date: "Jan 2025 → Jul 2025",
-    company: "Siena AI · Founding",
+    company: "Siena AI",
     role: "Founding Recruiter",
     location: "AI Customer Experience",
     desc: "First recruiter in. Deep AI adoption — Perplexity, Juicebox, Claude, Cursor. Built first recruiting workflow agent with Zapier + Gumloop.",
@@ -38,7 +37,7 @@ const EXPERIENCES: ExperienceItem[] = [
   },
   {
     date: "Aug 2023 → Jan 2025",
-    company: "Cresta · Conversational AI",
+    company: "Cresta",
     role: "Founding Recruiter",
     location: "Remote · Global",
     desc: "Recruiter #1. Hired for LLM, RAG, AI Agent, Infrastructure teams globally. Led AI events in Toronto. Campus at Waterloo + U of T.",
@@ -62,134 +61,87 @@ const EXPERIENCES: ExperienceItem[] = [
   },
 ];
 
-function ExperienceRow({ item }: { item: ExperienceItem }) {
-  const ref = useRef<HTMLDivElement>(null);
+const containerVariants: Variants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.1 } },
+};
 
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          el.classList.add("in-view");
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <div
-      ref={ref}
-      className="scroll-fade-up"
-      style={{
-        display: "grid",
-        gridTemplateColumns: "200px 1fr",
-        gap: "2rem",
-        padding: "1.75rem 0",
-        borderBottom: "1px solid rgba(255,255,255,0.05)",
-        transition: "opacity 0.5s ease, transform 0.5s ease",
-      }}
-    >
-      {/* Left: date */}
-      <div>
-        <div
-          style={{
-            fontFamily: "var(--font-dm-mono), 'DM Mono', monospace",
-            fontSize: "11px",
-            color: "#333",
-            lineHeight: 1.6,
-            marginBottom: "0.5rem",
-          }}
-        >
-          {item.date}
-        </div>
-        <span
-          style={{
-            display: "inline-block",
-            background: "rgba(74,122,42,0.15)",
-            color: "#8aad5a",
-            fontSize: "11px",
-            fontFamily: "var(--font-dm-mono), 'DM Mono', monospace",
-            padding: "2px 8px",
-            borderRadius: "6px",
-          }}
-        >
-          {item.company}
-        </span>
-      </div>
-
-      {/* Right: content */}
-      <div>
-        <div style={{ marginBottom: "0.4rem" }}>
-          <span style={{ fontSize: "14px", fontWeight: 700, color: "#ffffff" }}>
-            {item.role}
-          </span>
-          <span
-            style={{ fontSize: "12px", color: "#444", marginLeft: "0.5rem" }}
-          >
-            · {item.location}
-          </span>
-        </div>
-        <p
-          style={{
-            fontSize: "13px",
-            color: "#555",
-            margin: "0 0 0.75rem 0",
-            lineHeight: 1.75,
-          }}
-        >
-          {item.desc}
-        </p>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "4px" }}>
-          {item.chips.map((chip) => (
-            <span
-              key={chip}
-              style={{
-                fontSize: "11px",
-                color: "#444",
-                background: "rgba(255,255,255,0.04)",
-                padding: "2px 8px",
-                borderRadius: "4px",
-              }}
-            >
-              {chip}
-            </span>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
+const rowVariants: Variants = {
+  hidden: { opacity: 0, y: 12 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.16, 1, 0.3, 1] } },
+};
 
 export default function Experience() {
   return (
     <section
       id="experience"
-      style={{
-        padding: "4rem 2.5rem",
-        borderTop: "1px solid rgba(255,255,255,0.06)",
-      }}
+      className="px-6 md:px-10 py-20 md:py-28 border-t border-white/[0.06] bg-[#0d0d0b]/40"
     >
-      <div style={{ maxWidth: "900px", margin: "0 auto" }}>
-        <div
-          style={{
-            fontFamily: "var(--font-dm-mono), 'DM Mono', monospace",
-            fontSize: "11px",
-            color: "#333",
-            textTransform: "uppercase",
-            letterSpacing: "0.1em",
-            marginBottom: "0.5rem",
-          }}
+      <div className="max-w-5xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "0px 0px -60px 0px" }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+          className="mb-12"
         >
-          Experience
-        </div>
-        {EXPERIENCES.map((item) => (
-          <ExperienceRow key={item.company + item.date} item={item} />
-        ))}
+          <p className="font-mono text-[10px] text-white/20 tracking-[0.12em] uppercase mb-2">
+            Career
+          </p>
+          <h2 className="text-[28px] md:text-[36px] font-semibold tracking-tight text-white leading-none">
+            Experience
+          </h2>
+        </motion.div>
+
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "0px 0px -80px 0px" }}
+        >
+          {EXPERIENCES.map((item) => (
+            <motion.div
+              key={item.company + item.date}
+              variants={rowVariants}
+              className="grid grid-cols-1 md:grid-cols-[180px_1fr] gap-3 md:gap-8 py-7 border-b border-white/[0.05]"
+            >
+              {/* Left: date + company badge */}
+              <div className="flex md:flex-col gap-3 md:gap-2 items-start">
+                <span className="font-mono text-[10px] text-white/20 leading-relaxed whitespace-nowrap">
+                  {item.date}
+                </span>
+                <span className="font-mono text-[9px] px-2.5 py-1 rounded-full bg-[rgba(74,122,42,0.1)] text-[#8aad5a]/70 border border-[rgba(138,173,90,0.15)] whitespace-nowrap">
+                  {item.company}
+                </span>
+              </div>
+
+              {/* Right: content */}
+              <div>
+                <div className="flex items-baseline gap-2 mb-2 flex-wrap">
+                  <span className="text-[14px] font-semibold text-white/90">
+                    {item.role}
+                  </span>
+                  <span className="text-[11px] text-white/22">
+                    · {item.location}
+                  </span>
+                </div>
+                <p className="text-[13px] text-white/35 leading-[1.8] mb-3 max-w-[600px]">
+                  {item.desc}
+                </p>
+                <div className="flex flex-wrap gap-1.5">
+                  {item.chips.map((chip) => (
+                    <span
+                      key={chip}
+                      className="text-[10px] text-white/22 bg-white/[0.035] border border-white/[0.06] px-2.5 py-0.5 rounded"
+                    >
+                      {chip}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
     </section>
   );

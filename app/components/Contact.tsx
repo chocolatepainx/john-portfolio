@@ -1,16 +1,20 @@
 "use client";
+import { motion } from "framer-motion";
 
 const LINKS = [
   {
     label: "linkedin.com/in/john-duong-x",
+    sub: "Connect on LinkedIn",
     href: "https://linkedin.com/in/john-duong-x",
   },
   {
     label: "github.com/chocolatepainx",
+    sub: "See the code",
     href: "https://github.com/chocolatepainx",
   },
   {
     label: "johnle_10@hotmail.com",
+    sub: "Email directly",
     href: "mailto:johnle_10@hotmail.com",
   },
 ];
@@ -19,109 +23,71 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      style={{
-        padding: "4rem 2.5rem",
-        borderTop: "1px solid rgba(255,255,255,0.06)",
-      }}
+      className="px-6 md:px-10 py-20 md:py-28 border-t border-white/[0.06]"
     >
-      <div
-        style={{
-          background: "#0d0d0b",
-          border: "1px solid rgba(255,255,255,0.07)",
-          borderRadius: "20px",
-          padding: "3.5rem",
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: "4rem",
-          alignItems: "center",
-          maxWidth: "900px",
-          margin: "0 auto",
-        }}
-      >
-        {/* Left */}
-        <div>
-          <h2
-            style={{
-              fontSize: "2rem",
-              fontWeight: 800,
-              letterSpacing: "-0.04em",
-              margin: "0 0 1rem 0",
-              lineHeight: 1.1,
-              color: "#ffffff",
-            }}
+      <div className="max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-14 md:gap-20 items-start">
+          {/* Left */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "0px 0px -60px 0px" }}
+            transition={{ duration: 0.45, ease: "easeOut" }}
           >
-            Let&apos;s build{" "}
-            <span style={{ color: "#8aad5a" }}>something.</span>
-          </h2>
-          <p
-            style={{
-              fontSize: "13px",
-              color: "#555",
-              lineHeight: 1.75,
-              margin: "0 0 1.75rem 0",
-            }}
-          >
-            Always building, always recruiting. Open for conversations about
-            AI-native talent infrastructure, autonomous sourcing, or just
-            talking agents. DMs always open.
-          </p>
-          <a
-            href="mailto:johnle_10@hotmail.com"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              background: "#4a7a2a",
-              color: "#ffffff",
-              padding: "10px 20px",
-              borderRadius: "8px",
-              fontSize: "14px",
-              fontWeight: 500,
-              textDecoration: "none",
-              transition: "background 0.2s",
-            }}
-            onMouseEnter={(e) =>
-              ((e.currentTarget as HTMLElement).style.background = "#5a8f35")
-            }
-            onMouseLeave={(e) =>
-              ((e.currentTarget as HTMLElement).style.background = "#4a7a2a")
-            }
-          >
-            Say hello →
-          </a>
-        </div>
-
-        {/* Right: Links */}
-        <div>
-          {LINKS.map((link) => (
+            <p className="font-mono text-[10px] text-white/20 tracking-[0.12em] uppercase mb-3">
+              Contact
+            </p>
+            <h2 className="font-serif text-[36px] md:text-[44px] text-white leading-[1.1] tracking-tight mb-5">
+              Let&apos;s talk.
+            </h2>
+            <p className="text-[14px] text-white/38 leading-[1.9] mb-8 max-w-[340px]">
+              Always building, always recruiting. Open for conversations about
+              AI-native talent infrastructure, autonomous sourcing, or just
+              talking agents.
+            </p>
             <a
-              key={link.href}
-              href={link.href}
-              target={link.href.startsWith("http") ? "_blank" : undefined}
-              rel={
-                link.href.startsWith("http") ? "noopener noreferrer" : undefined
-              }
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                color: "#444",
-                textDecoration: "none",
-                fontSize: "13px",
-                padding: "14px 0",
-                borderBottom: "1px solid rgba(255,255,255,0.05)",
-                transition: "color 0.2s",
-              }}
-              onMouseEnter={(e) =>
-                ((e.currentTarget as HTMLElement).style.color = "#8aad5a")
-              }
-              onMouseLeave={(e) =>
-                ((e.currentTarget as HTMLElement).style.color = "#444")
-              }
+              href="mailto:johnle_10@hotmail.com"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-[#111] text-[13px] font-medium rounded-full hover:bg-white/88 transition-colors"
             >
-              <span>{link.label}</span>
-              <span style={{ fontSize: "12px" }}>↗</span>
+              Say hello
+              <span className="text-[#111]/40">→</span>
             </a>
-          ))}
+          </motion.div>
+
+          {/* Right: Links */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "0px 0px -60px 0px" }}
+            transition={{ duration: 0.45, delay: 0.1, ease: "easeOut" }}
+            className="pt-0 md:pt-14"
+          >
+            {LINKS.map((link, i) => (
+              <a
+                key={link.href}
+                href={link.href}
+                target={link.href.startsWith("http") ? "_blank" : undefined}
+                rel={
+                  link.href.startsWith("http") ? "noopener noreferrer" : undefined
+                }
+                className="group flex items-center justify-between py-5 border-b border-white/[0.06] hover:border-white/12 transition-colors"
+              >
+                <div>
+                  <div className="text-[13px] text-white/50 group-hover:text-white/80 transition-colors font-mono">
+                    {link.label}
+                  </div>
+                  <div className="text-[11px] text-white/20 mt-0.5">{link.sub}</div>
+                </div>
+                <motion.span
+                  className="text-white/20 group-hover:text-[#8aad5a] transition-colors"
+                  whileHover={{ x: 3 }}
+                  transition={{ duration: 0.15 }}
+                >
+                  ↗
+                </motion.span>
+              </a>
+            ))}
+          </motion.div>
         </div>
       </div>
     </section>

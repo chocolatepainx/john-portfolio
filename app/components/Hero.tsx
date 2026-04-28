@@ -1,419 +1,195 @@
 "use client";
-
+import { motion } from "framer-motion";
 import Terminal from "./Terminal";
+import { NumberTicker } from "./ui/NumberTicker";
+import { BorderBeam } from "./ui/BorderBeam";
 
 const STATS = [
-  { number: "2019", suffix: "", label: "AI since" },
-  { number: "100+", suffix: "", label: "Placements" },
-  { number: "87%", suffix: "", label: "Offer acceptance" },
-  { number: "4+", suffix: "", label: "Agents built" },
+  { value: 100, suffix: "+", label: "Engineers placed" },
+  { value: 87, suffix: "%", label: "Offer acceptance" },
+  { value: 4, suffix: "+", label: "Agents built" },
 ];
 
-const STAT_GRID = [
-  { number: "2019", label: "AI since" },
-  { number: "0→1", label: "Always" },
-  { number: "4+", label: "Agents built" },
-  { number: "87%", label: "Offer acceptance" },
-];
-
-const FOOTER_TAGS = [
-  "Python",
-  "Claude Opus 4.6",
-  "Pearch",
-  "Slack Bolt",
-  "GitHub Actions",
-];
+const STACK_TAGS = ["Python", "Claude Opus 4.6", "Pearch", "Slack Bolt", "GitHub Actions"];
 
 export default function Hero() {
   return (
-    <section
-      style={{
-        display: "grid",
-        gridTemplateColumns: "1fr 320px",
-        minHeight: "calc(100vh - 52px)",
-        borderBottom: "1px solid rgba(255,255,255,0.06)",
-      }}
-    >
-      {/* Left Column */}
+    <section className="relative min-h-screen flex flex-col justify-center px-6 md:px-10 pt-20 pb-16 overflow-hidden">
+      {/* Spotlight glow */}
       <div
+        className="pointer-events-none absolute inset-0 opacity-40"
         style={{
-          padding: "4.5rem 2.5rem",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          borderRight: "1px solid rgba(255,255,255,0.06)",
+          background:
+            "radial-gradient(ellipse 60% 50% at 50% 0%, rgba(74,122,42,0.12), transparent)",
         }}
-      >
-        {/* Kicker */}
-        <div
-          className="animate-fade-up stagger-1"
-          style={{
-            fontFamily: "var(--font-dm-mono), 'DM Mono', monospace",
-            fontSize: "11px",
-            color: "#444",
-            textTransform: "uppercase",
-            letterSpacing: "0.08em",
-            marginBottom: "2rem",
-            opacity: 0,
-          }}
-        >
-          Talent Engineer ·{" "}
-          <span style={{ color: "#8aad5a" }}>Valence · Series B</span> · Toronto
-        </div>
+      />
 
-        {/* Headline */}
-        <div style={{ marginBottom: "1.75rem" }}>
-          <h1
-            className="animate-fade-up stagger-2"
-            style={{
-              fontSize: "clamp(2.6rem, 5vw, 4rem)",
-              fontWeight: 900,
-              letterSpacing: "-0.04em",
-              lineHeight: 1.05,
-              margin: 0,
-              color: "#ffffff",
-              opacity: 0,
-            }}
-          >
-            I don&apos;t just hire
-          </h1>
-          <h1
-            className="animate-fade-up stagger-3"
-            style={{
-              fontSize: "clamp(2.6rem, 5vw, 4rem)",
-              fontWeight: 900,
-              letterSpacing: "-0.04em",
-              lineHeight: 1.05,
-              margin: 0,
-              color: "#4a7a2a",
-              opacity: 0,
-            }}
-          >
-            AI builders.
-          </h1>
-          <h1
-            className="animate-fade-up stagger-4"
-            style={{
-              fontSize: "clamp(2.6rem, 5vw, 4rem)",
-              fontWeight: 300,
-              letterSpacing: "-0.04em",
-              lineHeight: 1.05,
-              margin: 0,
-              color: "#2a2a28",
-              opacity: 0,
-            }}
-          >
-            I am one.
-          </h1>
-        </div>
+      <div className="relative w-full max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-12 lg:gap-16 items-center">
 
-        {/* Body */}
-        <p
-          className="animate-fade-up stagger-5"
-          style={{
-            fontSize: "15px",
-            color: "#555",
-            maxWidth: "440px",
-            lineHeight: 1.85,
-            margin: "0 0 2rem 0",
-            opacity: 0,
-          }}
-        >
-          Most recruiters use AI tools. I build them. Scout — my autonomous
-          sourcing agent — runs 24/7 finding engineers that matter, while I
-          focus on the work that actually needs a human.
-        </p>
-
-        {/* CTAs */}
-        <div
-          className="animate-fade-up stagger-6"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "1.5rem",
-            marginBottom: "3rem",
-            opacity: 0,
-          }}
-        >
-          <a
-            href="https://linkedin.com/in/john-duong-x"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              background: "#4a7a2a",
-              color: "#ffffff",
-              padding: "10px 20px",
-              borderRadius: "8px",
-              fontSize: "14px",
-              fontWeight: 500,
-              textDecoration: "none",
-              transition: "background 0.2s",
-            }}
-            onMouseEnter={(e) =>
-              ((e.currentTarget as HTMLElement).style.background = "#5a8f35")
-            }
-            onMouseLeave={(e) =>
-              ((e.currentTarget as HTMLElement).style.background = "#4a7a2a")
-            }
-          >
-            View full profile →
-          </a>
-          <a
-            href="mailto:johnle_10@hotmail.com"
-            style={{
-              color: "#555",
-              fontSize: "14px",
-              textDecoration: "none",
-              transition: "color 0.2s",
-            }}
-            onMouseEnter={(e) =>
-              ((e.target as HTMLElement).style.color = "#8aad5a")
-            }
-            onMouseLeave={(e) =>
-              ((e.target as HTMLElement).style.color = "#555")
-            }
-          >
-            Say hello ↗
-          </a>
-        </div>
-
-        {/* Proof strip */}
-        <div
-          className="animate-fade-up stagger-7"
-          style={{
-            borderTop: "1px solid rgba(255,255,255,0.07)",
-            paddingTop: "1.5rem",
-            display: "flex",
-            gap: "0",
-            opacity: 0,
-          }}
-        >
-          {STATS.map((stat, i) => (
-            <div
-              key={i}
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "4px",
-                paddingRight: "2rem",
-                borderRight:
-                  i < STATS.length - 1
-                    ? "1px solid rgba(255,255,255,0.08)"
-                    : "none",
-                marginRight: i < STATS.length - 1 ? "2rem" : "0",
-              }}
+          {/* Left: Editorial content */}
+          <div>
+            <motion.p
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.05, ease: "easeOut" }}
+              className="font-mono text-[10px] text-white/30 tracking-[0.16em] uppercase mb-8"
             >
-              <span
-                style={{
-                  fontSize: "18px",
-                  fontWeight: 700,
-                  color: "#8aad5a",
-                  letterSpacing: "-0.03em",
-                }}
+              Talent Engineer ·{" "}
+              <span className="text-[#8aad5a]/60">Valence · Series B</span>
+              {" "}· Toronto
+            </motion.p>
+
+            <div className="mb-8">
+              <motion.h1
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.55, delay: 0.15, ease: "easeOut" }}
+                className="font-serif text-[56px] md:text-[68px] lg:text-[76px] leading-[1.04] tracking-[-0.01em] text-white"
               >
-                {stat.number}
-              </span>
-              <span
-                style={{
-                  fontSize: "11px",
-                  color: "#555",
-                  fontFamily: "var(--font-dm-mono), 'DM Mono', monospace",
-                }}
+                I don&apos;t just hire
+              </motion.h1>
+              <motion.h1
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.55, delay: 0.25, ease: "easeOut" }}
+                className="font-serif text-[56px] md:text-[68px] lg:text-[76px] leading-[1.04] tracking-[-0.01em] text-white"
               >
-                {stat.label}
-              </span>
+                AI builders.
+              </motion.h1>
+              <motion.h1
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.55, delay: 0.35, ease: "easeOut" }}
+                className="font-serif text-[56px] md:text-[68px] lg:text-[76px] leading-[1.04] tracking-[-0.01em] text-[#8aad5a] italic"
+              >
+                I am one.
+              </motion.h1>
             </div>
-          ))}
-        </div>
-      </div>
 
-      {/* Right Column */}
-      <div
-        className="animate-slide-right"
-        style={{
-          padding: "2.5rem 2rem",
-          display: "flex",
-          flexDirection: "column",
-          gap: "1rem",
-          justifyContent: "center",
-          background: "#0d0d0b",
-          opacity: 0,
-        }}
-      >
-        {/* Scout Card */}
-        <div
-          style={{
-            background: "#1a1a18",
-            border: "1px solid rgba(255,255,255,0.07)",
-            borderRadius: "14px",
-            overflow: "hidden",
-          }}
-        >
-          {/* Top gradient bar */}
-          <div
-            style={{
-              height: "1px",
-              background:
-                "linear-gradient(to right, transparent, #4a7a2a, transparent)",
-            }}
-          />
+            <motion.p
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.45, ease: "easeOut" }}
+              className="text-[15px] text-white/45 leading-[1.85] max-w-[420px] mb-9"
+            >
+              Building Scout — an autonomous sourcing agent that finds, scores,
+              and surfaces engineers 24/7. Most recruiters use AI tools. I build
+              them.
+            </motion.p>
 
-          {/* Card Header */}
-          <div
-            style={{
-              padding: "1.25rem",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
-            <span
-              style={{
-                fontSize: "14px",
-                fontWeight: 700,
-                color: "#ffffff",
-              }}
+            <motion.div
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.55, ease: "easeOut" }}
+              className="flex items-center gap-4 flex-wrap"
             >
-              Scout
-            </span>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "5px",
-                background: "rgba(74,122,42,0.15)",
-                borderRadius: "12px",
-                padding: "3px 8px",
-              }}
-            >
-              <span
-                className="animate-pulse-dot"
-                style={{
-                  display: "inline-block",
-                  width: "6px",
-                  height: "6px",
-                  borderRadius: "50%",
-                  background: "#4a7a2a",
-                }}
-              />
-              <span
-                style={{
-                  fontSize: "11px",
-                  color: "#8aad5a",
-                  fontFamily: "var(--font-dm-mono), 'DM Mono', monospace",
-                }}
+              <a
+                href="https://linkedin.com/in/john-duong-x"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-[#111] text-[13px] font-medium rounded-full hover:bg-white/88 transition-colors"
               >
-                running
-              </span>
-            </div>
-          </div>
+                View profile
+                <span className="text-[#111]/40">↗</span>
+              </a>
+              <a
+                href="mailto:johnle_10@hotmail.com"
+                className="inline-flex items-center gap-2 px-5 py-2.5 border border-white/12 text-white/55 text-[13px] rounded-full hover:text-white/80 hover:border-white/25 transition-colors"
+              >
+                Get in touch
+              </a>
+            </motion.div>
 
-          {/* Terminal */}
-          <div style={{ padding: "0 1.25rem" }}>
-            <Terminal />
-          </div>
-
-          {/* Footer */}
-          <div
-            style={{
-              padding: "1rem 1.25rem",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              flexWrap: "wrap",
-              gap: "0.5rem",
-            }}
-          >
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "4px" }}>
-              {FOOTER_TAGS.map((tag) => (
-                <span
-                  key={tag}
-                  style={{
-                    fontFamily: "var(--font-dm-mono), 'DM Mono', monospace",
-                    fontSize: "10px",
-                    color: "#444",
-                    background: "rgba(255,255,255,0.04)",
-                    padding: "2px 6px",
-                    borderRadius: "4px",
-                  }}
-                >
-                  {tag}
-                </span>
+            {/* Stats */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.75, ease: "easeOut" }}
+              className="flex items-center gap-0 mt-12 pt-8 border-t border-white/[0.06]"
+            >
+              {STATS.map((stat, i) => (
+                <div key={i} className="flex items-stretch">
+                  <div className="flex flex-col gap-1 pr-7">
+                    <div className="text-[22px] font-bold text-white leading-none tabular-nums">
+                      <NumberTicker value={stat.value} suffix={stat.suffix} />
+                    </div>
+                    <div className="font-mono text-[10px] text-white/25 tracking-wide">
+                      {stat.label}
+                    </div>
+                  </div>
+                  {i < STATS.length - 1 && (
+                    <div className="w-px bg-white/8 self-stretch mr-7" />
+                  )}
+                </div>
               ))}
-            </div>
-            <a
-              href="https://github.com/chocolatepainx"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                fontFamily: "var(--font-dm-mono), 'DM Mono', monospace",
-                fontSize: "11px",
-                color: "#444",
-                textDecoration: "none",
-                transition: "color 0.2s",
-              }}
-              onMouseEnter={(e) =>
-                ((e.target as HTMLElement).style.color = "#8aad5a")
-              }
-              onMouseLeave={(e) =>
-                ((e.target as HTMLElement).style.color = "#444")
-              }
-            >
-              github ↗
-            </a>
+            </motion.div>
           </div>
-        </div>
 
-        {/* 2x2 Stat Grid */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "0.5rem",
-          }}
-        >
-          {STAT_GRID.map((stat, i) => (
-            <div
-              key={i}
-              style={{
-                background: "#1a1a18",
-                border: "1px solid rgba(255,255,255,0.05)",
-                borderRadius: "10px",
-                padding: "1rem",
-              }}
-            >
-              <div
-                style={{
-                  fontSize: "1.2rem",
-                  fontWeight: 800,
-                  color: "#ffffff",
-                  letterSpacing: "-0.04em",
-                  lineHeight: 1,
-                  marginBottom: "4px",
-                }}
-              >
-                {stat.number}
-                {stat.number !== "0→1" && (
-                  <span style={{ color: "#4a7a2a", fontSize: "0.8em" }}></span>
-                )}
-              </div>
-              <div
-                style={{
-                  fontSize: "10px",
-                  color: "#333",
-                  fontFamily: "var(--font-dm-mono), 'DM Mono', monospace",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.04em",
-                }}
-              >
-                {stat.label}
-              </div>
-            </div>
-          ))}
+          {/* Right: Scout card */}
+          <motion.div
+            initial={{ opacity: 0, x: 16 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
+            className="hidden lg:block"
+          >
+            <ScoutCard />
+          </motion.div>
         </div>
       </div>
     </section>
+  );
+}
+
+function ScoutCard() {
+  return (
+    <div className="relative rounded-xl border border-white/8 bg-[#0d0d0b] overflow-hidden">
+      <BorderBeam duration={7} />
+
+      {/* Card header */}
+      <div className="flex items-center justify-between px-4 py-3 border-b border-white/5">
+        <div className="flex items-center gap-2">
+          <span
+            className="w-2 h-2 rounded-full bg-[#8aad5a]"
+            style={{ animation: "blink 2.4s ease-in-out infinite" }}
+          />
+          <span className="font-mono text-[11px] text-white/50 uppercase tracking-wider">
+            Scout
+          </span>
+        </div>
+        <div className="flex items-center gap-1.5">
+          <span className="w-2 h-2 rounded-full bg-white/8" />
+          <span className="w-2 h-2 rounded-full bg-white/8" />
+          <span className="w-2 h-2 rounded-full bg-white/8" />
+        </div>
+      </div>
+
+      {/* Terminal */}
+      <div className="p-4">
+        <Terminal />
+      </div>
+
+      {/* Card footer */}
+      <div className="flex items-center justify-between px-4 py-3 border-t border-white/5">
+        <div className="flex items-center gap-1.5 flex-wrap">
+          {STACK_TAGS.slice(0, 3).map((tag) => (
+            <span
+              key={tag}
+              className="font-mono text-[9px] text-white/30 bg-white/4 border border-white/6 px-2 py-0.5 rounded"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+        <a
+          href="https://github.com/chocolatepainx"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-mono text-[10px] text-white/20 hover:text-white/45 transition-colors"
+        >
+          github ↗
+        </a>
+      </div>
+    </div>
   );
 }
