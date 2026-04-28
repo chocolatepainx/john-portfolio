@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const SECTIONS = ["work", "experience", "contact"] as const;
 
@@ -41,12 +42,12 @@ export default function Nav() {
       }`}
     >
       <div className="w-full max-w-5xl mx-auto flex items-center justify-between">
-        <a
+        <Link
           href="/"
           className="text-sm font-medium text-[#1A1917] hover:text-[#3D6B1A] transition-colors tracking-tight"
         >
           John Duong
-        </a>
+        </Link>
 
         <nav className="flex items-center gap-5">
           {[
