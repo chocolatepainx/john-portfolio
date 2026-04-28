@@ -49,19 +49,19 @@ const PROJECTS: Project[] = [
 const STATUS_CONFIG: Record<Status, { label: string; className: string }> = {
   live: {
     label: "Live",
-    className: "bg-[rgba(74,122,42,0.12)] text-[#8aad5a] border border-[rgba(138,173,90,0.2)]",
+    className: "bg-[rgba(61,107,26,0.08)] text-[#3D6B1A] border border-[rgba(61,107,26,0.2)]",
   },
   "coming-soon": {
     label: "Soon",
-    className: "bg-[rgba(250,200,0,0.07)] text-[#7a6a00] border border-[rgba(250,200,0,0.15)]",
+    className: "bg-[rgba(160,120,0,0.07)] text-[#6B5000] border border-[rgba(160,120,0,0.2)]",
   },
   "in-progress": {
     label: "In progress",
-    className: "bg-white/4 text-white/30 border border-white/8",
+    className: "bg-[rgba(26,25,23,0.04)] text-[rgba(26,25,23,0.35)] border border-[rgba(26,25,23,0.09)]",
   },
   shipped: {
     label: "Shipped",
-    className: "bg-[rgba(100,120,255,0.08)] text-[#5060b0] border border-[rgba(100,120,255,0.2)]",
+    className: "bg-[rgba(50,70,200,0.06)] text-[#2535A0] border border-[rgba(50,70,200,0.15)]",
   },
 };
 
@@ -82,12 +82,12 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
   return (
     <motion.div
       variants={rowVariants}
-      className="group grid grid-cols-[28px_1fr_auto] gap-4 md:gap-6 py-7 border-b border-white/[0.06] cursor-default"
+      className="group grid grid-cols-[28px_1fr_auto] gap-4 md:gap-6 py-7 border-b border-[#E8E3D6]/60 cursor-default"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
       {/* Index */}
-      <span className="font-mono text-[11px] text-white/15 pt-[3px] tabular-nums">
+      <span className="font-mono text-[11px] text-[#C4BFB5] pt-[3px] tabular-nums">
         {String(index + 1).padStart(2, "0")}
       </span>
 
@@ -96,29 +96,27 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
         <div className="flex items-center gap-2.5 mb-2 flex-wrap">
           <span
             className="text-[15px] font-semibold transition-colors duration-200"
-            style={{ color: hovered ? "#8aad5a" : "#ffffff" }}
+            style={{ color: hovered ? "#3D6B1A" : "#1A1917" }}
           >
             {project.name}
           </span>
-          <span
-            className={`font-mono text-[9px] px-2 py-0.5 rounded-full ${className}`}
-          >
+          <span className={`font-mono text-[9px] px-2 py-0.5 rounded-full ${className}`}>
             {label}
           </span>
           {project.isOpenSource && (
-            <span className="font-mono text-[9px] px-2 py-0.5 rounded-full bg-[rgba(74,122,42,0.08)] text-[#8aad5a]/60 border border-[rgba(138,173,90,0.15)]">
+            <span className="font-mono text-[9px] px-2 py-0.5 rounded-full bg-[rgba(61,107,26,0.06)] text-[#3D6B1A]/60 border border-[rgba(61,107,26,0.15)]">
               Open Source
             </span>
           )}
         </div>
-        <p className="text-[13px] text-white/35 leading-[1.75] max-w-[620px] mb-3">
+        <p className="text-[13px] text-[#6E6B62] leading-[1.75] max-w-[620px] mb-3">
           {project.desc}
         </p>
         <div className="flex flex-wrap gap-1.5">
           {project.tags.map((tag) => (
             <span
               key={tag}
-              className="font-mono text-[9px] text-white/22 bg-white/[0.035] border border-white/[0.06] px-2 py-0.5 rounded"
+              className="font-mono text-[9px] text-[#9E9A92] bg-[#F0EBE1] border border-[#E8E3D6] px-2 py-0.5 rounded"
             >
               {tag}
             </span>
@@ -128,8 +126,8 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
 
       {/* Arrow */}
       <motion.span
-        className="text-sm pt-0.5 text-white/20"
-        animate={{ x: hovered ? 3 : 0, color: hovered ? "#8aad5a" : "rgba(255,255,255,0.2)" }}
+        className="text-sm pt-0.5"
+        animate={{ x: hovered ? 3 : 0, color: hovered ? "#3D6B1A" : "#C4BFB5" }}
         transition={{ duration: 0.15 }}
       >
         →
@@ -140,7 +138,7 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
 
 export default function Projects() {
   return (
-    <section id="work" className="px-6 md:px-10 py-20 md:py-28 border-t border-white/[0.06]">
+    <section id="work" className="px-6 md:px-10 py-20 md:py-28 border-t border-[#E8E3D6]">
       <div className="max-w-5xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 8 }}
@@ -149,10 +147,10 @@ export default function Projects() {
           transition={{ duration: 0.4, ease: "easeOut" }}
           className="mb-12"
         >
-          <p className="font-mono text-[10px] text-white/20 tracking-[0.12em] uppercase mb-2">
+          <p className="font-mono text-[10px] text-[#BDB9B1] tracking-[0.12em] uppercase mb-2">
             Selected
           </p>
-          <h2 className="text-[28px] md:text-[36px] font-semibold tracking-tight text-white leading-none">
+          <h2 className="text-[28px] md:text-[36px] font-semibold tracking-tight text-[#1A1917] leading-none">
             Work
           </h2>
         </motion.div>

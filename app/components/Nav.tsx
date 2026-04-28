@@ -18,14 +18,14 @@ export default function Nav() {
       transition={{ duration: 0.4, ease: "easeOut" }}
       className={`fixed top-0 inset-x-0 z-50 h-14 flex items-center px-6 md:px-10 transition-all duration-300 ${
         scrolled
-          ? "border-b border-white/5 bg-[#111111]/90 backdrop-blur-md"
+          ? "border-b border-[#E8E3D6] bg-[#FAFAF7]/92 backdrop-blur-md"
           : "bg-transparent"
       }`}
     >
       <div className="w-full max-w-5xl mx-auto flex items-center justify-between">
         <a
           href="/"
-          className="text-sm font-medium text-white/90 hover:text-white transition-colors tracking-tight"
+          className="text-sm font-medium text-[#1A1917] hover:text-[#3D6B1A] transition-colors tracking-tight"
         >
           John Duong
         </a>
@@ -33,13 +33,13 @@ export default function Nav() {
         <nav className="flex items-center gap-5">
           <a
             href="#work"
-            className="hidden md:block text-xs text-white/35 hover:text-white/70 transition-colors"
+            className="hidden md:block text-xs text-[#9E9A92] hover:text-[#1A1917] transition-colors"
           >
             Work
           </a>
           <a
             href="#experience"
-            className="hidden md:block text-xs text-white/35 hover:text-white/70 transition-colors"
+            className="hidden md:block text-xs text-[#9E9A92] hover:text-[#1A1917] transition-colors"
           >
             Experience
           </a>
@@ -47,7 +47,7 @@ export default function Nav() {
             href="https://linkedin.com/in/john-duong-x"
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden md:block text-xs text-white/35 hover:text-white/70 transition-colors"
+            className="hidden md:block text-xs text-[#9E9A92] hover:text-[#1A1917] transition-colors"
           >
             LinkedIn
           </a>
@@ -76,16 +76,16 @@ function ScoutPill() {
   }, []);
 
   return (
-    <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/8 bg-white/[0.02]">
+    <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#3D6B1A]/20 bg-[#3D6B1A]/[0.05]">
       <span
-        className="w-1.5 h-1.5 rounded-full bg-[#8aad5a]"
+        className="w-1.5 h-1.5 rounded-full bg-[#3D6B1A]"
         style={{ animation: "blink 2.4s ease-in-out infinite" }}
       />
-      <span className="font-mono text-[10px] text-[#8aad5a] tracking-wider uppercase">
+      <span className="font-mono text-[10px] text-[#3D6B1A] tracking-wider uppercase">
         Scout
       </span>
       {time && (
-        <span className="font-mono text-[10px] text-white/20 tabular-nums">
+        <span className="font-mono text-[10px] text-[#9E9A92] tabular-nums">
           {time}
         </span>
       )}

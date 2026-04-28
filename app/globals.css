@@ -1,19 +1,19 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg: #111111;
-  --color-bg-deep: #0a0a08;
-  --color-bg-dark: #0d0d0b;
-  --color-surface: #161614;
-  --color-moss: #4a7a2a;
-  --color-moss-light: #8aad5a;
-  --color-moss-pale: rgba(138, 173, 90, 0.1);
-  --color-text: #ffffff;
-  --color-text-secondary: #a0a0a0;
-  --color-text-muted: #555555;
-  --color-text-dim: #333333;
-  --color-border: rgba(255, 255, 255, 0.07);
-  --color-border-faint: rgba(255, 255, 255, 0.04);
+  --color-bg: #FAFAF7;
+  --color-bg-warm: #F3EEE4;
+  --color-bg-section: #F5F0E7;
+  --color-surface: #EDE8DF;
+  --color-moss: #3D6B1A;
+  --color-moss-mid: #5A8430;
+  --color-moss-pale: rgba(61, 107, 26, 0.07);
+  --color-ink: #1A1917;
+  --color-ink-secondary: #6E6B62;
+  --color-ink-tertiary: #9E9A92;
+  --color-ink-muted: #BDB9B1;
+  --color-border: #E8E3D6;
+  --color-border-subtle: #EEE9DE;
 
   --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
   --font-mono: var(--font-dm-mono), "Fira Code", "Cascadia Code", monospace;
@@ -29,8 +29,8 @@ html {
 }
 
 body {
-  background: #111111;
-  color: #ffffff;
+  background: #FAFAF7;
+  color: #1A1917;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -41,19 +41,19 @@ body {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #111111;
+  background: #F3EEE4;
 }
 ::-webkit-scrollbar-thumb {
-  background: #222;
+  background: #D6D0C4;
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #333;
+  background: #C4BFB5;
 }
 
 ::selection {
-  background: rgba(74, 122, 42, 0.3);
-  color: #ffffff;
+  background: rgba(61, 107, 26, 0.15);
+  color: #1A1917;
 }
 
 /* Border beam rotation — uses @property for smooth CSS animation */

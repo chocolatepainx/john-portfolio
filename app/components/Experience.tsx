@@ -75,7 +75,7 @@ export default function Experience() {
   return (
     <section
       id="experience"
-      className="px-6 md:px-10 py-20 md:py-28 border-t border-white/[0.06] bg-[#0d0d0b]/40"
+      className="px-6 md:px-10 py-20 md:py-28 border-t border-[#E8E3D6] bg-[#F5F0E7]"
     >
       <div className="max-w-5xl mx-auto">
         <motion.div
@@ -85,10 +85,10 @@ export default function Experience() {
           transition={{ duration: 0.4, ease: "easeOut" }}
           className="mb-12"
         >
-          <p className="font-mono text-[10px] text-white/20 tracking-[0.12em] uppercase mb-2">
+          <p className="font-mono text-[10px] text-[#BDB9B1] tracking-[0.12em] uppercase mb-2">
             Career
           </p>
-          <h2 className="text-[28px] md:text-[36px] font-semibold tracking-tight text-white leading-none">
+          <h2 className="text-[28px] md:text-[36px] font-semibold tracking-tight text-[#1A1917] leading-none">
             Experience
           </h2>
         </motion.div>
@@ -103,14 +103,14 @@ export default function Experience() {
             <motion.div
               key={item.company + item.date}
               variants={rowVariants}
-              className="grid grid-cols-1 md:grid-cols-[180px_1fr] gap-3 md:gap-8 py-7 border-b border-white/[0.05]"
+              className="grid grid-cols-1 md:grid-cols-[180px_1fr] gap-3 md:gap-8 py-7 border-b border-[#E8E3D6]/60"
             >
               {/* Left: date + company badge */}
               <div className="flex md:flex-col gap-3 md:gap-2 items-start">
-                <span className="font-mono text-[10px] text-white/20 leading-relaxed whitespace-nowrap">
+                <span className="font-mono text-[10px] text-[#9E9A92] leading-relaxed whitespace-nowrap">
                   {item.date}
                 </span>
-                <span className="font-mono text-[9px] px-2.5 py-1 rounded-full bg-[rgba(74,122,42,0.1)] text-[#8aad5a]/70 border border-[rgba(138,173,90,0.15)] whitespace-nowrap">
+                <span className="font-mono text-[9px] px-2.5 py-1 rounded-full bg-[rgba(61,107,26,0.08)] text-[#3D6B1A]/80 border border-[rgba(61,107,26,0.18)] whitespace-nowrap">
                   {item.company}
                 </span>
               </div>
@@ -118,21 +118,21 @@ export default function Experience() {
               {/* Right: content */}
               <div>
                 <div className="flex items-baseline gap-2 mb-2 flex-wrap">
-                  <span className="text-[14px] font-semibold text-white/90">
+                  <span className="text-[14px] font-semibold text-[#1A1917]">
                     {item.role}
                   </span>
-                  <span className="text-[11px] text-white/22">
+                  <span className="text-[11px] text-[#9E9A92]">
                     · {item.location}
                   </span>
                 </div>
-                <p className="text-[13px] text-white/35 leading-[1.8] mb-3 max-w-[600px]">
+                <p className="text-[13px] text-[#6E6B62] leading-[1.8] mb-3 max-w-[600px]">
                   {item.desc}
                 </p>
                 <div className="flex flex-wrap gap-1.5">
                   {item.chips.map((chip) => (
                     <span
                       key={chip}
-                      className="text-[10px] text-white/22 bg-white/[0.035] border border-white/[0.06] px-2.5 py-0.5 rounded"
+                      className="text-[10px] text-[#9E9A92] bg-[#EEE9DE] border border-[#E8E3D6] px-2.5 py-0.5 rounded"
                     >
                       {chip}
                     </span>
