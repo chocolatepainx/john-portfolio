@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import { motion, type Variants } from "framer-motion";
 
 interface ExperienceItem {
@@ -71,6 +72,55 @@ const rowVariants: Variants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.16, 1, 0.3, 1] } },
 };
 
+function ExperienceRow({ item }: { item: ExperienceItem }) {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <motion.div
+      variants={rowVariants}
+      className="relative grid grid-cols-1 md:grid-cols-[180px_1fr] gap-3 md:gap-8 py-7 border-b border-[#E8E3D6]/60 overflow-hidden rounded-lg"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      <motion.div
+        className="absolute inset-0 -z-10 bg-[#EDE8DF] rounded-lg"
+        initial={{ scaleX: 0 }}
+        animate={{ scaleX: hovered ? 1 : 0 }}
+        style={{ transformOrigin: "left" }}
+        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+      />
+
+      {/* Left: date + company badge */}
+      <div className="flex md:flex-col gap-3 md:gap-2 items-start">
+        <span className="font-mono text-[10px] text-[#9E9A92] leading-relaxed whitespace-nowrap">
+          {item.date}
+        </span>
+        <span className="font-mono text-[9px] px-2.5 py-1 rounded-full bg-[rgba(61,107,26,0.08)] text-[#3D6B1A]/80 border border-[rgba(61,107,26,0.18)] whitespace-nowrap">
+          {item.company}
+        </span>
+      </div>
+
+      {/* Right: content */}
+      <div>
+        <div className="flex items-baseline gap-2 mb-2 flex-wrap">
+          <span className="text-[14px] font-semibold text-[#1A1917]">{item.role}</span>
+          <span className="text-[11px] text-[#9E9A92]">· {item.location}</span>
+        </div>
+        <p className="text-[13px] text-[#6E6B62] leading-[1.8] mb-3 max-w-[600px]">{item.desc}</p>
+        <div className="flex flex-wrap gap-1.5">
+          {item.chips.map((chip) => (
+            <span
+              key={chip}
+              className="text-[10px] text-[#9E9A92] bg-[#EEE9DE] border border-[#E8E3D6] px-2.5 py-0.5 rounded"
+            >
+              {chip}
+            </span>
+          ))}
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
 export default function Experience() {
   return (
     <section
@@ -85,7 +135,7 @@ export default function Experience() {
           transition={{ duration: 0.4, ease: "easeOut" }}
           className="mb-12"
         >
-          <p className="font-mono text-[10px] text-[#BDB9B1] tracking-[0.12em] uppercase mb-2">
+          <p className="font-mono text-[10px] text-[#BDB9B1] tracking-[0.12em] uppercase mb-4">
             Career
           </p>
           <h2 className="text-[28px] md:text-[36px] font-semibold tracking-tight text-[#1A1917] leading-none">
@@ -112,46 +162,7 @@ export default function Experience() {
           viewport={{ once: true, margin: "0px 0px -80px 0px" }}
         >
           {EXPERIENCES.map((item) => (
-            <motion.div
-              key={item.company + item.date}
-              variants={rowVariants}
-              className="grid grid-cols-1 md:grid-cols-[180px_1fr] gap-3 md:gap-8 py-7 border-b border-[#E8E3D6]/60"
-            >
-              {/* Left: date + company badge */}
-              <div className="flex md:flex-col gap-3 md:gap-2 items-start">
-                <span className="font-mono text-[10px] text-[#9E9A92] leading-relaxed whitespace-nowrap">
-                  {item.date}
-                </span>
-                <span className="font-mono text-[9px] px-2.5 py-1 rounded-full bg-[rgba(61,107,26,0.08)] text-[#3D6B1A]/80 border border-[rgba(61,107,26,0.18)] whitespace-nowrap">
-                  {item.company}
-                </span>
-              </div>
-
-              {/* Right: content */}
-              <div>
-                <div className="flex items-baseline gap-2 mb-2 flex-wrap">
-                  <span className="text-[14px] font-semibold text-[#1A1917]">
-                    {item.role}
-                  </span>
-                  <span className="text-[11px] text-[#9E9A92]">
-                    · {item.location}
-                  </span>
-                </div>
-                <p className="text-[13px] text-[#6E6B62] leading-[1.8] mb-3 max-w-[600px]">
-                  {item.desc}
-                </p>
-                <div className="flex flex-wrap gap-1.5">
-                  {item.chips.map((chip) => (
-                    <span
-                      key={chip}
-                      className="text-[10px] text-[#9E9A92] bg-[#EEE9DE] border border-[#E8E3D6] px-2.5 py-0.5 rounded"
-                    >
-                      {chip}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
+            <ExperienceRow key={item.company + item.date} item={item} />
           ))}
         </motion.div>
         </div>

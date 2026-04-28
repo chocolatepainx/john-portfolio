@@ -1,5 +1,6 @@
 "use client";
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import Terminal from "./Terminal";
 import { NumberTicker } from "./ui/NumberTicker";
 import { BorderBeam } from "./ui/BorderBeam";
@@ -117,7 +118,7 @@ export default function Hero() {
                     </div>
                   </div>
                   {i < STATS.length - 1 && (
-                    <div className="w-px bg-[#E8E3D6] self-stretch mr-7" />
+                    <div className="w-px bg-[#D4CEBC] self-stretch mr-7" />
                   )}
                 </div>
               ))}
@@ -140,8 +141,30 @@ export default function Hero() {
 }
 
 function ScoutCard() {
+  const ref = useRef<HTMLDivElement>(null);
+  const rawX = useMotionValue(0);
+  const rawY = useMotionValue(0);
+  const rotateX = useSpring(useTransform(rawY, [-0.5, 0.5], [8, -8]), { stiffness: 300, damping: 30 });
+  const rotateY = useSpring(useTransform(rawX, [-0.5, 0.5], [-8, 8]), { stiffness: 300, damping: 30 });
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const rect = ref.current?.getBoundingClientRect();
+    if (!rect) return;
+    rawX.set((e.clientX - rect.left) / rect.width - 0.5);
+    rawY.set((e.clientY - rect.top) / rect.height - 0.5);
+  };
+  const handleMouseLeave = () => { rawX.set(0); rawY.set(0); };
+
   return (
-    <div className="relative rounded-xl border border-[#2E2E28] bg-[#1A1916] overflow-hidden shadow-[0_8px_40px_rgba(26,25,22,0.12)]">
+    <motion.div
+      ref={ref}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      animate={{ y: [0, -7, 0] }}
+      transition={{ repeat: Infinity, duration: 4.5, ease: "easeInOut" }}
+      style={{ rotateX, rotateY, transformPerspective: 800 }}
+      className="relative rounded-xl border border-[#2E2E28] bg-[#1A1916] overflow-hidden shadow-[0_8px_40px_rgba(26,25,22,0.12)]"
+    >
       <BorderBeam duration={7} />
 
       {/* Card header */}
@@ -188,6 +211,6 @@ function ScoutCard() {
           github ↗
         </a>
       </div>
-    </div>
+    </motion.div>
   );
 }

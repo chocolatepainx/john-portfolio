@@ -2,13 +2,31 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
+const SECTIONS = ["work", "experience", "contact"] as const;
+
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
+  const [active, setActive] = useState<string>("");
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const observers: IntersectionObserver[] = [];
+    SECTIONS.forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const obs = new IntersectionObserver(
+        ([entry]) => { if (entry.isIntersecting) setActive(id); },
+        { rootMargin: "-40% 0px -55% 0px" }
+      );
+      obs.observe(el);
+      observers.push(obs);
+    });
+    return () => observers.forEach((o) => o.disconnect());
   }, []);
 
   return (
@@ -31,18 +49,28 @@ export default function Nav() {
         </a>
 
         <nav className="flex items-center gap-5">
-          <a
-            href="#work"
-            className="hidden md:block text-xs text-[#9E9A92] hover:text-[#1A1917] transition-colors"
-          >
-            Work
-          </a>
-          <a
-            href="#experience"
-            className="hidden md:block text-xs text-[#9E9A92] hover:text-[#1A1917] transition-colors"
-          >
-            Experience
-          </a>
+          {[
+            { id: "work", label: "Work" },
+            { id: "experience", label: "Experience" },
+          ].map(({ id, label }) => (
+            <a
+              key={id}
+              href={`#${id}`}
+              className={`hidden md:block text-xs transition-colors ${
+                active === id
+                  ? "text-[#1A1917] font-medium"
+                  : "text-[#9E9A92] hover:text-[#1A1917]"
+              }`}
+            >
+              {label}
+              {active === id && (
+                <motion.span
+                  layoutId="nav-dot"
+                  className="ml-1.5 inline-block w-1 h-1 rounded-full bg-[#3D6B1A] align-middle"
+                />
+              )}
+            </a>
+          ))}
           <a
             href="https://linkedin.com/in/john-duong-x"
             target="_blank"

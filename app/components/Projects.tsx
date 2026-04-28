@@ -154,7 +154,7 @@ export default function Projects() {
           transition={{ duration: 0.4, ease: "easeOut" }}
           className="mb-12"
         >
-          <p className="font-mono text-[10px] text-[#BDB9B1] tracking-[0.12em] uppercase mb-2">
+          <p className="font-mono text-[10px] text-[#BDB9B1] tracking-[0.12em] uppercase mb-4">
             Selected
           </p>
           <h2 className="text-[28px] md:text-[36px] font-semibold tracking-tight text-[#1A1917] leading-none">
