@@ -1,6 +1,6 @@
 "use client";
-
-import { useEffect, useRef } from "react";
+import { useState } from "react";
+import { motion, type Variants } from "framer-motion";
 
 type Status = "live" | "coming-soon" | "in-progress" | "shipped";
 
@@ -46,183 +46,128 @@ const PROJECTS: Project[] = [
   },
 ];
 
-function statusBadge(status: Status, isOpenSource?: boolean) {
-  const configs: Record<Status, { bg: string; color: string; label: string }> = {
-    live: { bg: "rgba(74,122,42,0.15)", color: "#8aad5a", label: "Live" },
-    "coming-soon": { bg: "rgba(250,200,0,0.1)", color: "#8a7000", label: "Coming soon" },
-    "in-progress": { bg: "rgba(255,255,255,0.05)", color: "#555", label: "In progress" },
-    shipped: { bg: "rgba(100,120,255,0.1)", color: "#6070d0", label: "Shipped" },
-  };
-  const { bg, color, label } = configs[status];
-  return (
-    <div style={{ display: "flex", gap: "6px", alignItems: "center", flexWrap: "wrap" }}>
-      <span
-        style={{
-          background: bg,
-          color,
-          fontSize: "11px",
-          fontFamily: "var(--font-dm-mono), 'DM Mono', monospace",
-          padding: "3px 8px",
-          borderRadius: "6px",
-          whiteSpace: "nowrap",
-        }}
-      >
-        {label}
-      </span>
-      {isOpenSource && (
-        <span
-          style={{
-            background: "rgba(74,122,42,0.15)",
-            color: "#8aad5a",
-            fontSize: "11px",
-            fontFamily: "var(--font-dm-mono), 'DM Mono', monospace",
-            padding: "3px 8px",
-            borderRadius: "6px",
-          }}
-        >
-          Open Source
-        </span>
-      )}
-    </div>
-  );
-}
+const STATUS_CONFIG: Record<Status, { label: string; className: string }> = {
+  live: {
+    label: "Live",
+    className: "bg-[rgba(74,122,42,0.12)] text-[#8aad5a] border border-[rgba(138,173,90,0.2)]",
+  },
+  "coming-soon": {
+    label: "Soon",
+    className: "bg-[rgba(250,200,0,0.07)] text-[#7a6a00] border border-[rgba(250,200,0,0.15)]",
+  },
+  "in-progress": {
+    label: "In progress",
+    className: "bg-white/4 text-white/30 border border-white/8",
+  },
+  shipped: {
+    label: "Shipped",
+    className: "bg-[rgba(100,120,255,0.08)] text-[#5060b0] border border-[rgba(100,120,255,0.2)]",
+  },
+};
 
-function ProjectRow({ project }: { project: Project }) {
-  const ref = useRef<HTMLDivElement>(null);
+const containerVariants: Variants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.08 } },
+};
 
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          el.classList.add("in-view");
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+const rowVariants: Variants = {
+  hidden: { opacity: 0, y: 14 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.16, 1, 0.3, 1] } },
+};
+
+function ProjectRow({ project, index }: { project: Project; index: number }) {
+  const [hovered, setHovered] = useState(false);
+  const { label, className } = STATUS_CONFIG[project.status];
 
   return (
-    <div
-      ref={ref}
-      className="scroll-fade-up proj-row"
-      style={{
-        display: "grid",
-        gridTemplateColumns: "1fr auto",
-        gap: "2rem",
-        padding: "1.75rem 0",
-        borderBottom: "1px solid rgba(255,255,255,0.06)",
-        alignItems: "start",
-        cursor: "default",
-        transition: "opacity 0.5s ease, transform 0.5s ease",
-      }}
-      onMouseEnter={(e) => {
-        const arrow = e.currentTarget.querySelector<HTMLElement>(".proj-arrow");
-        if (arrow) arrow.style.color = "#8aad5a";
-      }}
-      onMouseLeave={(e) => {
-        const arrow = e.currentTarget.querySelector<HTMLElement>(".proj-arrow");
-        if (arrow) arrow.style.color = "#333";
-      }}
+    <motion.div
+      variants={rowVariants}
+      className="group grid grid-cols-[28px_1fr_auto] gap-4 md:gap-6 py-7 border-b border-white/[0.06] cursor-default"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
     >
+      {/* Index */}
+      <span className="font-mono text-[11px] text-white/15 pt-[3px] tabular-nums">
+        {String(index + 1).padStart(2, "0")}
+      </span>
+
+      {/* Content */}
       <div>
-        <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.4rem", flexWrap: "wrap" }}>
-          <span style={{ fontSize: "15px", fontWeight: 700, color: "#ffffff" }}>
+        <div className="flex items-center gap-2.5 mb-2 flex-wrap">
+          <span
+            className="text-[15px] font-semibold transition-colors duration-200"
+            style={{ color: hovered ? "#8aad5a" : "#ffffff" }}
+          >
             {project.name}
           </span>
-          {statusBadge(project.status, project.isOpenSource)}
+          <span
+            className={`font-mono text-[9px] px-2 py-0.5 rounded-full ${className}`}
+          >
+            {label}
+          </span>
+          {project.isOpenSource && (
+            <span className="font-mono text-[9px] px-2 py-0.5 rounded-full bg-[rgba(74,122,42,0.08)] text-[#8aad5a]/60 border border-[rgba(138,173,90,0.15)]">
+              Open Source
+            </span>
+          )}
         </div>
-        <p
-          style={{
-            fontSize: "13px",
-            color: "#555",
-            margin: "0 0 0.75rem 0",
-            lineHeight: 1.65,
-            maxWidth: "680px",
-          }}
-        >
+        <p className="text-[13px] text-white/35 leading-[1.75] max-w-[620px] mb-3">
           {project.desc}
         </p>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "4px" }}>
+        <div className="flex flex-wrap gap-1.5">
           {project.tags.map((tag) => (
             <span
               key={tag}
-              style={{
-                fontFamily: "var(--font-dm-mono), 'DM Mono', monospace",
-                fontSize: "10px",
-                color: "#444",
-                background: "rgba(255,255,255,0.04)",
-                padding: "2px 7px",
-                borderRadius: "4px",
-              }}
+              className="font-mono text-[9px] text-white/22 bg-white/[0.035] border border-white/[0.06] px-2 py-0.5 rounded"
             >
               {tag}
             </span>
           ))}
         </div>
       </div>
-      <span
-        className="proj-arrow"
-        style={{
-          fontSize: "16px",
-          color: "#333",
-          transition: "color 0.2s",
-          paddingTop: "2px",
-        }}
+
+      {/* Arrow */}
+      <motion.span
+        className="text-sm pt-0.5 text-white/20"
+        animate={{ x: hovered ? 3 : 0, color: hovered ? "#8aad5a" : "rgba(255,255,255,0.2)" }}
+        transition={{ duration: 0.15 }}
       >
         →
-      </span>
-    </div>
+      </motion.span>
+    </motion.div>
   );
 }
 
 export default function Projects() {
   return (
-    <>
-      <style>{`
-        .projects-section {
-          background: #111111;
-          padding: 4rem 2.5rem;
-          border-top: 1px solid rgba(255,255,255,0.06);
-          overflow-x: hidden;
-        }
-        @media (max-width: 767px) {
-          .projects-section {
-            padding: 2.5rem 1.25rem;
-          }
-          .proj-row {
-            grid-template-columns: 1fr auto !important;
-            gap: 1rem !important;
-            padding: 1.25rem 0 !important;
-          }
-        }
-      `}</style>
-      <section
-        id="projects"
-        className="projects-section"
-      >
-        <div style={{ maxWidth: "900px", margin: "0 auto" }}>
-          <div
-            style={{
-              fontFamily: "var(--font-dm-mono), 'DM Mono', monospace",
-              fontSize: "11px",
-              color: "#333",
-              textTransform: "uppercase",
-              letterSpacing: "0.1em",
-              marginBottom: "0.5rem",
-            }}
-          >
-            Projects
-          </div>
-          {PROJECTS.map((project) => (
-            <ProjectRow key={project.name} project={project} />
+    <section id="work" className="px-6 md:px-10 py-20 md:py-28 border-t border-white/[0.06]">
+      <div className="max-w-5xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "0px 0px -60px 0px" }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+          className="mb-12"
+        >
+          <p className="font-mono text-[10px] text-white/20 tracking-[0.12em] uppercase mb-2">
+            Selected
+          </p>
+          <h2 className="text-[28px] md:text-[36px] font-semibold tracking-tight text-white leading-none">
+            Work
+          </h2>
+        </motion.div>
+
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "0px 0px -80px 0px" }}
+        >
+          {PROJECTS.map((project, i) => (
+            <ProjectRow key={project.name} project={project} index={i} />
           ))}
-        </div>
-      </section>
-    </>
+        </motion.div>
+      </div>
+    </section>
   );
 }

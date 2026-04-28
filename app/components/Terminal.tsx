@@ -1,5 +1,4 @@
 "use client";
-
 import { useState, useEffect } from "react";
 
 type TerminalLine =
@@ -21,8 +20,7 @@ export default function Terminal() {
   const [visibleCount, setVisibleCount] = useState(0);
 
   useEffect(() => {
-    // Start after 1.5s delay, then add a line every 400ms
-    const initialTimeout = setTimeout(() => {
+    const t = setTimeout(() => {
       const interval = setInterval(() => {
         setVisibleCount((prev) => {
           if (prev >= LINES.length) {
@@ -31,62 +29,40 @@ export default function Terminal() {
           }
           return prev + 1;
         });
-      }, 400);
+      }, 420);
       return () => clearInterval(interval);
-    }, 1500);
-
-    return () => clearTimeout(initialTimeout);
+    }, 1200);
+    return () => clearTimeout(t);
   }, []);
 
   return (
-    <div
-      style={{
-        background: "#0a0a08",
-        borderRadius: "8px",
-        padding: "1rem",
-        fontFamily: "var(--font-dm-mono), 'DM Mono', monospace",
-        fontSize: "11px",
-        lineHeight: "1.8",
-        minHeight: "120px",
-      }}
-    >
+    <div className="bg-[#0a0a08] rounded-lg p-3.5 font-mono text-[11px] leading-[1.85] min-h-[120px]">
       {LINES.slice(0, visibleCount).map((line, i) => (
-        <div
-          key={i}
-          className="animate-line-in"
-          style={{ display: "flex", whiteSpace: "pre" }}
-        >
+        <div key={i} className="flex whitespace-pre animate-line-in">
           {line.type === "command" && (
-            <span style={{ color: "#ffffff" }}>{line.text}</span>
+            <span className="text-white/80">{line.text}</span>
           )}
           {line.type === "kv" && (
             <>
               <span style={{ color: "#8aad5a" }}>{line.key}</span>
-              <span style={{ color: "#444444" }}>{line.value}</span>
+              <span className="text-white/20">{line.value}</span>
             </>
           )}
           {line.type === "string" && (
-            <span style={{ color: "#c8e89a" }}>{line.text}</span>
+            <span style={{ color: "rgba(138,173,90,0.7)" }}>{line.text}</span>
           )}
           {line.type === "done" && (
-            <span style={{ color: "#4ade80" }}>
-              {line.text}{" "}
+            <span className="text-green-400/70">
+              {line.text}
               {i === visibleCount - 1 && (
-                <span className="animate-blink" style={{ color: "#4ade80" }}>
-                  ▋
-                </span>
+                <span className="animate-blink text-green-400/50"> ▋</span>
               )}
             </span>
           )}
         </div>
       ))}
       {visibleCount === 0 && (
-        <span
-          className="animate-blink"
-          style={{ color: "#333", fontSize: "11px" }}
-        >
-          ▋
-        </span>
+        <span className="animate-blink text-white/15">▋</span>
       )}
     </div>
   );

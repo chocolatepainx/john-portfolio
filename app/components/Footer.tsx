@@ -1,58 +1,39 @@
+"use client";
+import { useEffect, useState } from "react";
+
 export default function Footer() {
+  const [time, setTime] = useState("");
+
+  useEffect(() => {
+    const update = () =>
+      setTime(
+        new Date().toLocaleTimeString("en-US", {
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: false,
+        })
+      );
+    update();
+    const id = setInterval(update, 1000);
+    return () => clearInterval(id);
+  }, []);
+
   return (
-    <>
-      <style>{`
-        .footer-root {
-          border-top: 1px solid rgba(255,255,255,0.05);
-          padding: 1.5rem 2.5rem;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          flex-wrap: wrap;
-          gap: 0.75rem;
-          overflow-x: hidden;
-        }
-        @media (max-width: 767px) {
-          .footer-root {
-            padding: 1.5rem 1.25rem;
-            flex-direction: column;
-            align-items: flex-start;
-          }
-        }
-      `}</style>
-      <footer className="footer-root">
+    <footer className="border-t border-white/[0.05] px-6 md:px-10 py-6 flex items-center justify-between flex-wrap gap-3">
+      <span className="font-mono text-[11px] text-white/18">
+        John Duong · Talent Engineer · Toronto · 2026
+      </span>
+      <div className="flex items-center gap-2 font-mono text-[10px]">
         <span
-          style={{
-            fontSize: "12px",
-            color: "#333",
-            fontFamily: "var(--font-dm-mono), 'DM Mono', monospace",
-          }}
-        >
-          John Duong · Talent Engineer · Toronto · 2025
-        </span>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "6px",
-            fontFamily: "var(--font-dm-mono), 'DM Mono', monospace",
-            fontSize: "11px",
-            color: "#8aad5a",
-          }}
-        >
-          <span
-            className="animate-pulse-dot"
-            style={{
-              display: "inline-block",
-              width: "6px",
-              height: "6px",
-              borderRadius: "50%",
-              background: "#4a7a2a",
-            }}
-          />
-          Scout is running
-        </div>
-      </footer>
-    </>
+          className="w-1.5 h-1.5 rounded-full bg-[#8aad5a]"
+          style={{ animation: "blink 2.4s ease-in-out infinite" }}
+        />
+        <span className="text-[#8aad5a]/60">Scout running</span>
+        {time && (
+          <span className="text-white/15 tabular-nums">{time}</span>
+        )}
+      </div>
+    </footer>
   );
 }
