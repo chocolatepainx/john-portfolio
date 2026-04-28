@@ -35,7 +35,7 @@ export default function Contact() {
             viewport={{ once: true, margin: "0px 0px -60px 0px" }}
             transition={{ duration: 0.45, ease: "easeOut" }}
           >
-            <p className="font-mono text-[10px] text-[#BDB9B1] tracking-[0.12em] uppercase mb-3">
+            <p className="font-mono text-[10px] text-[#BDB9B1] tracking-[0.12em] uppercase mb-4">
               Contact
             </p>
             <h2 className="font-serif text-[36px] md:text-[48px] text-[#1A1917] leading-[1.05] tracking-tight mb-5">
