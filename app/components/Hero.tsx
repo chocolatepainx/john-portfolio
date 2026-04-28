@@ -1,7 +1,7 @@
 "use client";
 import { useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import AgentFeed from "./AgentFeed";
+import ThinkingStream from "./ThinkingStream";
 import { NumberTicker } from "./ui/NumberTicker";
 import { BorderBeam } from "./ui/BorderBeam";
 import MagneticButton from "./ui/MagneticButton";
@@ -185,9 +185,9 @@ function ScoutCard() {
         </div>
       </div>
 
-      {/* Agent Feed */}
-      <div className="p-4">
-        <AgentFeed />
+      {/* Thinking Stream */}
+      <div className="px-4 py-3">
+        <ThinkingStream />
       </div>
 
       {/* Card footer */}
