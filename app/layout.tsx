@@ -25,6 +25,7 @@ export const metadata: Metadata = {
   title: "John Duong — Talent Engineer",
   description:
     "I don't just hire AI builders. I am one. Talent Engineer at Valence building Scout — an autonomous sourcing agent that runs 24/7.",
+  metadataBase: new URL("https://chocolatepainx.github.io/john-portfolio"),
   keywords: [
     "Talent Engineer",
     "AI Recruiting",
@@ -36,7 +37,15 @@ export const metadata: Metadata = {
   openGraph: {
     title: "John Duong — Talent Engineer",
     description: "I don't just hire AI builders. I am one.",
+    url: "https://chocolatepainx.github.io/john-portfolio",
+    siteName: "John Duong",
     type: "website",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "John Duong — Talent Engineer",
+    description: "I don't just hire AI builders. I am one.",
   },
 };
 

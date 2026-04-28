@@ -10,6 +10,7 @@ interface Project {
   tags: string[];
   status: Status;
   isOpenSource?: boolean;
+  href?: string;
 }
 
 const PROJECTS: Project[] = [
@@ -19,6 +20,7 @@ const PROJECTS: Project[] = [
     tags: ["Python", "Claude Opus 4.6", "Pearch", "Slack Bolt", "GitHub Actions", "Flask"],
     status: "live",
     isOpenSource: true,
+    href: "https://github.com/chocolatepainx",
   },
   {
     name: "Outreach Nurture Campaign",
@@ -78,11 +80,16 @@ const rowVariants: Variants = {
 function ProjectRow({ project, index }: { project: Project; index: number }) {
   const [hovered, setHovered] = useState(false);
   const { label, className } = STATUS_CONFIG[project.status];
+  const Tag = project.href ? motion.a : motion.div;
+  const linkProps = project.href
+    ? { href: project.href, target: "_blank", rel: "noopener noreferrer" }
+    : {};
 
   return (
-    <motion.div
+    <Tag
+      {...linkProps}
       variants={rowVariants}
-      className="group relative grid grid-cols-[28px_1fr_auto] gap-4 md:gap-6 py-7 border-b border-[#E8E3D6]/60 cursor-default overflow-hidden rounded-lg"
+      className={`group relative grid grid-cols-[28px_1fr_auto] gap-4 md:gap-6 py-7 border-b border-[#E8E3D6]/60 overflow-hidden rounded-lg ${project.href ? "cursor-pointer" : "cursor-default"}`}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
@@ -137,9 +144,9 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
         animate={{ x: hovered ? 3 : 0, color: hovered ? "#3D6B1A" : "#C4BFB5" }}
         transition={{ duration: 0.15 }}
       >
-        →
+        {project.href ? "↗" : "→"}
       </motion.span>
-    </motion.div>
+    </Tag>
   );
 }
 

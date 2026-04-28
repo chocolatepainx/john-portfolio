@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 type TerminalLine =
   | { type: "command"; text: string }
@@ -18,21 +18,32 @@ const LINES: TerminalLine[] = [
 
 export default function Terminal() {
   const [visibleCount, setVisibleCount] = useState(0);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
-    const t = setTimeout(() => {
-      const interval = setInterval(() => {
-        setVisibleCount((prev) => {
-          if (prev >= LINES.length) {
-            clearInterval(interval);
-            return prev;
-          }
-          return prev + 1;
-        });
-      }, 420);
-      return () => clearInterval(interval);
-    }, 1200);
-    return () => clearTimeout(t);
+    const run = () => {
+      setVisibleCount(0);
+      timeoutRef.current = setTimeout(() => {
+        intervalRef.current = setInterval(() => {
+          setVisibleCount((prev) => {
+            if (prev >= LINES.length) {
+              if (intervalRef.current) clearInterval(intervalRef.current);
+              timeoutRef.current = setTimeout(run, 3500);
+              return prev;
+            }
+            return prev + 1;
+          });
+        }, 420);
+      }, 1200);
+    };
+
+    run();
+
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
   }, []);
 
   return (

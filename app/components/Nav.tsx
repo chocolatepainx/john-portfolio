@@ -52,6 +52,7 @@ export default function Nav() {
           {[
             { id: "work", label: "Work" },
             { id: "experience", label: "Experience" },
+            { id: "contact", label: "Contact" },
           ].map(({ id, label }) => (
             <a
               key={id}
