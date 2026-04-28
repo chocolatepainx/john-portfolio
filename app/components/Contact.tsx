@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+import MagneticButton from "./ui/MagneticButton";
 
 const LINKS = [
   {
@@ -45,13 +46,13 @@ export default function Contact() {
               AI-native talent infrastructure, autonomous sourcing, or just
               talking agents.
             </p>
-            <a
+            <MagneticButton
               href="mailto:johnle_10@hotmail.com"
               className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#1A1917] text-[#FAFAF7] text-[13px] font-medium rounded-full hover:bg-[#2E2E28] transition-colors"
             >
               Say hello
               <span className="text-[#FAFAF7]/40">→</span>
-            </a>
+            </MagneticButton>
           </motion.div>
 
           {/* Right: Links */}

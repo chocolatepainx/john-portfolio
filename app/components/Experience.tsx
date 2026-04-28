@@ -93,6 +93,18 @@ export default function Experience() {
           </h2>
         </motion.div>
 
+        <div className="relative">
+          <motion.div
+            className="hidden md:block absolute left-[179px] top-0 bottom-0 w-px"
+            style={{
+              background: "linear-gradient(to bottom, transparent, #E8E3D6 8%, #E8E3D6 85%, transparent)",
+              transformOrigin: "top",
+            }}
+            initial={{ scaleY: 0 }}
+            whileInView={{ scaleY: 1 }}
+            viewport={{ once: true, amount: 0.05 }}
+            transition={{ duration: 2, ease: [0.16, 1, 0.3, 1] }}
+          />
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -142,6 +154,7 @@ export default function Experience() {
             </motion.div>
           ))}
         </motion.div>
+        </div>
       </div>
     </section>
   );
