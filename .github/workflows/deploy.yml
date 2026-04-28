@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - claude/admiring-bartik
   workflow_dispatch:
 
 permissions:
