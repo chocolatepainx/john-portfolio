@@ -44,8 +44,16 @@ export default function Nav() {
       <div className="w-full max-w-5xl mx-auto flex items-center justify-between">
         <Link
           href="/"
-          className="text-sm font-medium text-[#1A1917] hover:text-[#3D6B1A] transition-colors tracking-tight"
+          className="flex items-center gap-2 text-sm font-medium text-[#1A1917] hover:text-[#3D6B1A] transition-colors tracking-tight"
         >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/john-portfolio/avatar.jpg"
+            alt="John Duong"
+            width={22}
+            height={22}
+            className="rounded-full object-cover ring-1 ring-[#E8E3D6] w-[22px] h-[22px]"
+          />
           John Duong
         </Link>
 
