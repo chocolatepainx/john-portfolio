@@ -1,8 +1,10 @@
 "use client";
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import Terminal from "./Terminal";
 import { NumberTicker } from "./ui/NumberTicker";
 import { BorderBeam } from "./ui/BorderBeam";
+import MagneticButton from "./ui/MagneticButton";
 
 const STATS = [
   { value: 100, suffix: "+", label: "Engineers placed" },
@@ -32,30 +34,36 @@ export default function Hero() {
             </motion.p>
 
             <div className="mb-8">
-              <motion.h1
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.55, delay: 0.15, ease: "easeOut" }}
-                className="font-serif text-[56px] md:text-[72px] lg:text-[84px] leading-[1.02] tracking-[-0.02em] text-[#1A1917]"
-              >
-                I don&apos;t just hire
-              </motion.h1>
-              <motion.h1
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.55, delay: 0.25, ease: "easeOut" }}
-                className="font-serif text-[56px] md:text-[72px] lg:text-[84px] leading-[1.02] tracking-[-0.02em] text-[#1A1917]"
-              >
-                AI builders.
-              </motion.h1>
-              <motion.h1
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.55, delay: 0.35, ease: "easeOut" }}
-                className="font-serif text-[56px] md:text-[72px] lg:text-[84px] leading-[1.02] tracking-[-0.02em] text-[#3D6B1A] italic"
-              >
-                I am one.
-              </motion.h1>
+              <div className="overflow-hidden py-0.5">
+                <motion.h1
+                  initial={{ y: "105%" }}
+                  animate={{ y: "0%" }}
+                  transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+                  className="font-serif text-[56px] md:text-[72px] lg:text-[84px] leading-[1.02] tracking-[-0.02em] text-[#1A1917]"
+                >
+                  I don&apos;t just hire
+                </motion.h1>
+              </div>
+              <div className="overflow-hidden py-0.5">
+                <motion.h1
+                  initial={{ y: "105%" }}
+                  animate={{ y: "0%" }}
+                  transition={{ duration: 0.7, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                  className="font-serif text-[56px] md:text-[72px] lg:text-[84px] leading-[1.02] tracking-[-0.02em] text-[#1A1917]"
+                >
+                  AI builders.
+                </motion.h1>
+              </div>
+              <div className="overflow-hidden py-0.5">
+                <motion.h1
+                  initial={{ y: "105%" }}
+                  animate={{ y: "0%" }}
+                  transition={{ duration: 0.7, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                  className="font-serif text-[56px] md:text-[72px] lg:text-[84px] leading-[1.02] tracking-[-0.02em] text-[#3D6B1A] italic"
+                >
+                  I am one.
+                </motion.h1>
+              </div>
             </div>
 
             <motion.p
@@ -75,7 +83,7 @@ export default function Hero() {
               transition={{ duration: 0.5, delay: 0.55, ease: "easeOut" }}
               className="flex items-center gap-4 flex-wrap"
             >
-              <a
+              <MagneticButton
                 href="https://linkedin.com/in/john-duong-x"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -83,13 +91,13 @@ export default function Hero() {
               >
                 View profile
                 <span className="text-[#FAFAF7]/40">↗</span>
-              </a>
-              <a
+              </MagneticButton>
+              <MagneticButton
                 href="mailto:johnle_10@hotmail.com"
                 className="inline-flex items-center gap-2 px-5 py-2.5 border border-[#E8E3D6] text-[#6E6B62] text-[13px] rounded-full hover:text-[#1A1917] hover:border-[#C4BFB5] transition-colors"
               >
                 Get in touch
-              </a>
+              </MagneticButton>
             </motion.div>
 
             {/* Stats */}
@@ -110,7 +118,7 @@ export default function Hero() {
                     </div>
                   </div>
                   {i < STATS.length - 1 && (
-                    <div className="w-px bg-[#E8E3D6] self-stretch mr-7" />
+                    <div className="w-px bg-[#D4CEBC] self-stretch mr-7" />
                   )}
                 </div>
               ))}
@@ -133,8 +141,30 @@ export default function Hero() {
 }
 
 function ScoutCard() {
+  const ref = useRef<HTMLDivElement>(null);
+  const rawX = useMotionValue(0);
+  const rawY = useMotionValue(0);
+  const rotateX = useSpring(useTransform(rawY, [-0.5, 0.5], [8, -8]), { stiffness: 300, damping: 30 });
+  const rotateY = useSpring(useTransform(rawX, [-0.5, 0.5], [-8, 8]), { stiffness: 300, damping: 30 });
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const rect = ref.current?.getBoundingClientRect();
+    if (!rect) return;
+    rawX.set((e.clientX - rect.left) / rect.width - 0.5);
+    rawY.set((e.clientY - rect.top) / rect.height - 0.5);
+  };
+  const handleMouseLeave = () => { rawX.set(0); rawY.set(0); };
+
   return (
-    <div className="relative rounded-xl border border-[#2E2E28] bg-[#1A1916] overflow-hidden shadow-[0_8px_40px_rgba(26,25,22,0.12)]">
+    <motion.div
+      ref={ref}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      animate={{ y: [0, -7, 0] }}
+      transition={{ repeat: Infinity, duration: 4.5, ease: "easeInOut" }}
+      style={{ rotateX, rotateY, transformPerspective: 800 }}
+      className="relative rounded-xl border border-[#2E2E28] bg-[#1A1916] overflow-hidden shadow-[0_8px_40px_rgba(26,25,22,0.12)]"
+    >
       <BorderBeam duration={7} />
 
       {/* Card header */}
@@ -181,6 +211,6 @@ function ScoutCard() {
           github ↗
         </a>
       </div>
-    </div>
+    </motion.div>
   );
 }

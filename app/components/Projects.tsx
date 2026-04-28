@@ -82,10 +82,17 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
   return (
     <motion.div
       variants={rowVariants}
-      className="group grid grid-cols-[28px_1fr_auto] gap-4 md:gap-6 py-7 border-b border-[#E8E3D6]/60 cursor-default"
+      className="group relative grid grid-cols-[28px_1fr_auto] gap-4 md:gap-6 py-7 border-b border-[#E8E3D6]/60 cursor-default overflow-hidden rounded-lg"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
+      <motion.div
+        className="absolute inset-0 -z-10 bg-[#F0EBE1] rounded-lg"
+        initial={{ scaleX: 0 }}
+        animate={{ scaleX: hovered ? 1 : 0 }}
+        style={{ transformOrigin: "left" }}
+        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+      />
       {/* Index */}
       <span className="font-mono text-[11px] text-[#C4BFB5] pt-[3px] tabular-nums">
         {String(index + 1).padStart(2, "0")}
@@ -147,7 +154,7 @@ export default function Projects() {
           transition={{ duration: 0.4, ease: "easeOut" }}
           className="mb-12"
         >
-          <p className="font-mono text-[10px] text-[#BDB9B1] tracking-[0.12em] uppercase mb-2">
+          <p className="font-mono text-[10px] text-[#BDB9B1] tracking-[0.12em] uppercase mb-4">
             Selected
           </p>
           <h2 className="text-[28px] md:text-[36px] font-semibold tracking-tight text-[#1A1917] leading-none">

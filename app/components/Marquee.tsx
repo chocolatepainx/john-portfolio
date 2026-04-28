@@ -31,7 +31,13 @@ const ALL_ITEMS = [
 
 export default function MarqueeSection() {
   return (
-    <div className="border-y border-[#E8E3D6] bg-[#F2EDE3] py-2.5 overflow-hidden marquee-container">
+    <div
+      className="border-y border-[#E8E3D6] bg-[#F2EDE3] py-2.5 overflow-hidden marquee-container"
+      style={{
+        maskImage: "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
+        WebkitMaskImage: "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
+      }}
+    >
       <div className="flex w-max animate-marquee">
         {[...ALL_ITEMS, ...ALL_ITEMS].map((item, i) => {
           const highlighted = HIGHLIGHTED.has(item);
