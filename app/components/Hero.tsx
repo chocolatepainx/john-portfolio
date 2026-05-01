@@ -41,7 +41,7 @@ export default function Hero() {
                   transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
                   className="font-serif text-[56px] md:text-[72px] lg:text-[84px] leading-[1.02] tracking-[-0.02em] text-[#1A1917]"
                 >
-                  I don&apos;t just hire
+                  You don&apos;t stop the
                 </motion.h1>
               </div>
               <div className="overflow-hidden py-0.5">
@@ -51,7 +51,7 @@ export default function Hero() {
                   transition={{ duration: 0.7, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
                   className="font-serif text-[56px] md:text-[72px] lg:text-[84px] leading-[1.02] tracking-[-0.02em] text-[#1A1917]"
                 >
-                  AI builders.
+                  plane to fix it.
                 </motion.h1>
               </div>
               <div className="overflow-hidden py-0.5">
@@ -61,7 +61,7 @@ export default function Hero() {
                   transition={{ duration: 0.7, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
                   className="font-serif text-[56px] md:text-[72px] lg:text-[84px] leading-[1.02] tracking-[-0.02em] text-[#3D6B1A] italic"
                 >
-                  I am one.
+                  Fix it flying.
                 </motion.h1>
               </div>
             </div>
@@ -72,9 +72,9 @@ export default function Hero() {
               transition={{ duration: 0.5, delay: 0.45, ease: "easeOut" }}
               className="text-[15px] text-[#6E6B62] leading-[1.85] max-w-[420px] mb-9"
             >
+              Small, high-leverage tweaks while everything&apos;s in motion.
               Building Scout — an autonomous sourcing agent that finds, scores,
-              and surfaces engineers 24/7. Most recruiters use AI tools. I build
-              them.
+              and surfaces engineers 24/7.
             </motion.p>
 
             <motion.div
